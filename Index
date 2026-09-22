@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pre-Order Merchandise Form ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-cream: #FFFDF7;
+            --card-bg: #FFFFFF;
+            --brown-text: #785A46;
+            --brown-dark: #5C4333;
+            --brown-btn: #A0785C;
+            --brown-btn-hover: #8A644A;
+            --border-solid: #EFE4D3;
+            --radius-xl: 20px;
+            --radius-md: 10px;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Quicksand', sans-serif; background-color: var(--bg-cream); color: var(--brown-text); padding: 20px; }
+        .container { max-width: 650px; margin: 0 auto; background: var(--card-bg); border: 2px solid var(--border-solid); border-radius: var(--radius-xl); padding: 24px; box-shadow: 0 4px 16px rgba(120,90,70,0.05); }
+        h1 { font-family: 'Fredoka', cursive; color: var(--brown-dark); text-align: center; margin-bottom: 8px; }
+        p.subtitle { text-align: center; font-size: 0.9rem; margin-bottom: 24px; font-weight: 600; }
+        .form-group { margin-bottom: 16px; }
+        label { display: block; font-family: 'Fredoka', cursive; font-size: 0.9rem; margin-bottom: 6px; color: var(--brown-dark); }
+        input[type="text"], input[type="email"], textarea, select { width: 100%; padding: 10px 14px; border-radius: var(--radius-md); border: 2px solid var(--border-solid); font-family: 'Quicksand', sans-serif; font-weight: 600; outline: none; background: #FFFDF0; color: var(--brown-dark); }
+        textarea { resize: vertical; height: 80px; }
+        .product-box { background: #FFFDF0; border: 1.5px solid var(--border-solid); padding: 12px; border-radius: var(--radius-md); margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+        .product-info span { display: block; font-size: 0.85rem; color: #9A7A60; }
+        .product-info b { font-family: 'Fredoka', cursive; color: var(--brown-dark); }
+        input[type="number"] { width: 65px; padding: 6px; text-align: center; border-radius: 8px; border: 2px solid var(--border-solid); font-weight: bold; }
+        .total-box { font-family: 'Fredoka', cursive; font-size: 1.1rem; background: #FDE8AF; padding: 14px; border-radius: var(--radius-md); text-align: right; margin-bottom: 16px; color: var(--brown-dark); }
+        .btn { background: var(--brown-btn); color: #fff; border: none; width: 100%; padding: 14px; border-radius: var(--radius-md); font-family: 'Fredoka', cursive; font-size: 1rem; cursor: pointer; box-shadow: 0 4px 0 var(--brown-dark); }
+        .btn:hover { background: var(--brown-btn-hover); }
+        input[type="file"] { padding: 8px; background: #FFFDF0; border: 2px dashed var(--border-solid); border-radius: var(--radius-md); width: 100%; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🛒 Pre-Order Merchandise</h1>
+    <p class="subtitle">Silakan isi formulir dan lampirkan bukti pembayaranmu ya!</p>
+
+    <form id="orderForm">
+        <div class="form-group">
+            <label>Nama Lengkap *</label>
+            <input type="text" id="nama" required placeholder="Nama pemesan">
+        </div>
+
+        <div class="form-group">
+            <label>Email (Untuk pengiriman Invoice) *</label>
+            <input type="email" id="email" required placeholder="email@domain.com">
+        </div>
+
+        <div class="form-group">
+            <label>No. HP / WhatsApp *</label>
+            <input type="text" id="hp" required placeholder="08xxxxxxxxxx">
+        </div>
+
+        <div class="form-group">
+            <label>Sosial Media yang Bisa Dihubungi (Twitter/IG/Discord) *</label>
+            <input type="text" id="sosmed" required placeholder="@username atau link akunmu">
+        </div>
+
+        <div class="form-group">
+            <label>Metode Pengambilan *</label>
+            <select id="metodePengambilan" required>
+                <option value="">-- Pilih Metode Pengambilan --</option>
+                <option value="Pickup Event">Pickup Event (Ambil langsung di booth)</option>
+                <option value="Mail Order">Mail Order (Kirim via kurir)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Alamat Pengiriman (Diisi jika memilih Mail Order)</label>
+            <textarea id="alamat" placeholder="Nama jalan, kecamatan, kota, kode pos (Opsional jika pickup event)"></textarea>
+        </div>
+
+        <label style="margin-top: 20px;">Pilih Merchandise:</label>
+        
+        <div class="product-box">
+            <div class="product-info">
+                <b>Acrylic Standee Karakter A</b>
+                <span>Rp 85.000</span>
+            </div>
+            <input type="number" class="item-qty" data-name="Acrylic Standee Karakter A" data-price="85000" value="0" min="0">
+        </div>
+
+        <div class="product-box">
+            <div class="product-info">
+                <b>Phone Strap Acrylic</b>
+                <span>Rp 35.000</span>
+            </div>
+            <input type="number" class="item-qty" data-name="Phone Strap Acrylic" data-price="35000" value="0" min="0">
+        </div>
+
+        <div class="product-box">
+            <div class="product-info">
+                <b>Glossy Pin Badge (4.4cm)</b>
+                <span>Rp 15.000</span>
+            </div>
+            <input type="number" class="item-qty" data-name="Glossy Pin Badge" data-price="15000" value="0" min="0">
+        </div>
+
+        <div class="form-group" style="margin-top: 16px;">
+            <label>Atau Catatan / Link Drive Detail Pesanan Tambahan (Opsional)</label>
+            <input type="text" id="catatanPesanan" placeholder="Misal: Link Google Drive list pesanan / catatan khusus">
+        </div>
+
+        <div class="total-box">
+            Total Harga: <span id="totalDisplay">Rp 0</span>
+        </div>
+
+        <div class="form-group">
+            <label>Upload Bukti Pembayaran (Transfer/QRIS) *</label>
+            <input type="file" id="buktiBayar" accept="image/*" required>
+        </div>
+
+        <button type="submit" class="btn" id="submitBtn">✨ Kirim Pesanan & Generate Invoice</button>
+    </form>
+</div>
+
+<script>
+    // Ganti dengan URL Web App Google Apps Script kamu
+    const SCRIPT_URL = "MASUKKAN_URL_WEB_APP_GOOGLE_SCRIPT_DISINI";
+
+    const qtyInputs = document.querySelectorAll('.item-qty');
+    const totalDisplay = document.getElementById('totalDisplay');
+    let calculatedTotal = 0;
+
+    qtyInputs.forEach(input => {
+        input.addEventListener('input', calculateTotal);
+    });
+
+    function calculateTotal() {
+        calculatedTotal = 0;
+        qtyInputs.forEach(input => {
+            const qty = parseInt(input.value) || 0;
+            const price = parseInt(input.getAttribute('data-price'));
+            calculatedTotal += qty * price;
+        });
+        totalDisplay.innerText = "Rp " + calculatedTotal.toLocaleString('id-ID');
+    }
+
+    document.getElementById('orderForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        if (calculatedTotal === 0) {
+            alert("Pilih minimal 1 item merchandise terlebih dahulu!");
+            return;
+        }
+
+        const fileInput = document.getElementById('buktiBayar');
+        const file = fileInput.files[0];
+        if (!file) {
+            alert("Harap upload bukti pembayaran!");
+            return;
+        }
+
+        // Kumpulkan detail pesanan dari pilihan item + catatan tambahan
+        let detailsArr = [];
+        qtyInputs.forEach(input => {
+            const qty = parseInt(input.value) || 0;
+            if (qty > 0) {
+                detailsArr.push(`${input.getAttribute('data-name')} (x${qty})`);
+            }
+        });
+        
+        let finalDetailStr = detailsArr.join(', ');
+        const catatan = document.getElementById('catatanPesanan').value.trim();
+        if (catatan) {
+            finalDetailStr += ` | Catatan/Link: ${catatan}`;
+        }
+
+        const btn = document.getElementById('submitBtn');
+        btn.innerText = "Sedang Mengirim...";
+        btn.disabled = true;
+
+        const reader = new FileReader();
+        reader.onload = function(uploadEvent) {
+            const base64String = uploadEvent.target.result.split(',')[1];
+            
+            const payload = {
+                nama: document.getElementById('nama').value,
+                email: document.getElementById('email').value,
+                hp: document.getElementById('hp').value,
+                sosmed: document.getElementById('sosmed').value,
+                metodePengambilan: document.getElementById('metodePengambilan').value,
+                alamat: document.getElementById('alamat').value || "-",
+                detailPesanan: finalDetailStr,
+                totalHarga: "Rp " + calculatedTotal.toLocaleString('id-ID'),
+                fileName: file.name,
+                fileMimeType: file.type,
+                fileData: base64String
+            };
+
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.status === 'success') {
+                    alert(`Berhasil! Pesanan terkirim dengan Nomor Invoice: ${data.invoice}\nCek email kamu untuk rincian invoice.`);
+                    window.location.reload();
+                } else {
+                    alert("Terjadi kesalahan, silakan coba lagi.");
+                    btn.innerText = "✨ Kirim Pesanan & Generate Invoice";
+                    btn.disabled = false;
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Gagal terhubung ke server.");
+                btn.innerText = "✨ Kirim Pesanan & Generate Invoice";
+                btn.disabled = false;
+            });
+        };
+        reader.readAsDataURL(file);
+    });
+</script>
+</body>
+</html>
