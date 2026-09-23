@@ -1,7 +1,553 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+    <meta charset="UTF-8"><!DOCTYPE html>
+<html lang="id">
+<head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pre-Order Merchandise Form ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <style>
+        :root {
+            --bg-cream: #FFFDF7;
+            --card-bg: #FFFFFF;
+            --brown-text: #785A46;
+            --brown-dark: #5C4333;
+            --brown-btn: #A0785C;
+            --brown-btn-hover: #8A644A;
+            --border-solid: #EFE4D3;
+            --radius-xl: 20px;
+            --radius-md: 10px;
+            --highlight: #FDE8AF;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body { 
+            font-family: 'Quicksand', sans-serif; 
+            background-color: var(--bg-cream); 
+            color: var(--brown-text); 
+            padding: 20px 12px 100px; 
+        }
+        
+        .container { max-width: 650px; margin: 0 auto; }
+        h1 { font-family: 'Fredoka', cursive; color: var(--brown-dark); text-align: center; margin-bottom: 20px; }
+
+        .section-card, .merch-card { 
+            background: var(--card-bg); 
+            border: 2px solid var(--border-solid); 
+            border-radius: var(--radius-xl); 
+            padding: 20px; 
+            margin-bottom: 24px; 
+            box-shadow: 0 4px 12px rgba(120,90,70,0.04); 
+        }
+        
+        .section-title { 
+            font-family: 'Fredoka', cursive; 
+            font-size: 1.1rem; 
+            color: var(--brown-dark); 
+            margin-bottom: 16px; 
+            border-bottom: 2px dashed var(--border-solid); 
+            padding-bottom: 8px; 
+        }
+
+        .form-group { margin-bottom: 16px; }
+        label { display: block; font-family: 'Fredoka', cursive; font-size: 0.9rem; margin-bottom: 6px; color: var(--brown-dark); }
+        input[type="text"], input[type="email"], textarea, select { 
+            width: 100%; 
+            padding: 10px 14px; 
+            border-radius: var(--radius-md); 
+            border: 2px solid var(--border-solid); 
+            font-family: 'Quicksand', sans-serif; 
+            font-weight: 600; 
+            outline: none; 
+            background: #FFFDF0; 
+            color: var(--brown-dark); 
+        }
+        textarea { resize: vertical; height: 80px; }
+        
+        .fandom-title { 
+            font-family: 'Fredoka', cursive; 
+            font-size: 1.3rem; 
+            color: var(--brown-btn); 
+            text-align: center;
+            margin: 35px 0 20px; 
+            padding-bottom: 6px;
+            border-bottom: 2px dashed var(--border-solid);
+        }
+
+        .katalog-img { width: 100%; border-radius: var(--radius-md); border: 2px solid var(--border-solid); margin-bottom: 12px; display: block; }
+        .merch-header { font-family: 'Fredoka', cursive; font-size: 1.15rem; color: var(--brown-dark); margin-bottom: 4px; }
+        .merch-desc { font-size: 0.85rem; color: #8A644A; margin-bottom: 8px; line-height: 1.4; }
+        .merch-price { font-size: 0.95rem; font-weight: bold; color: #9A7A60; margin-bottom: 14px; display: block; }
+        
+        .counter-container { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            background: #FFFDF0; 
+            border: 2px solid var(--border-solid); 
+            border-radius: var(--radius-md); 
+            padding: 8px 14px; 
+            margin-top: 8px; 
+        }
+        .counter-label { font-family: 'Fredoka', cursive; font-size: 0.9rem; color: var(--brown-dark); }
+        .counter-controls { display: flex; align-items: center; gap: 12px; }
+        .counter-btn { 
+            background: var(--card-bg); 
+            border: 2px solid var(--border-solid); 
+            color: var(--brown-dark); 
+            font-family: 'Fredoka', cursive; 
+            font-size: 1rem; 
+            width: 32px; 
+            height: 32px; 
+            border-radius: 50%; 
+            cursor: pointer; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            transition: all 0.2s; 
+        }
+        .counter-btn:hover { background: var(--brown-btn); color: #fff; border-color: var(--brown-btn); }
+        .counter-value { font-family: 'Fredoka', cursive; font-size: 1.1rem; min-width: 24px; text-align: center; color: var(--brown-dark); }
+
+        .total-box { position: fixed; bottom: 0; left: 0; width: 100%; z-index: 1000; font-family: 'Fredoka', cursive; font-size: 1.1rem; background: var(--highlight); padding: 14px 20px; text-align: center; color: var(--brown-dark); box-shadow: 0 -4px 12px rgba(0,0,0,0.08); border-top: 2px solid #F6D888; }
+        .total-content { max-width: 650px; margin: 0 auto; display: flex; justify-content: center; align-items: center; gap: 8px; }
+
+        .btn { background: var(--brown-btn); color: #fff; border: none; width: 100%; padding: 14px; border-radius: var(--radius-md); font-family: 'Fredoka', cursive; font-size: 1rem; cursor: pointer; box-shadow: 0 4px 0 var(--brown-dark); margin-top: 10px; }
+        .btn:hover { background: var(--brown-btn-hover); }
+
+        /* MODAL PREVIEW INVOICE */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; overflow-y: auto; padding: 20px; }
+        
+        .invoice-card-preview {
+            background: #FFFDF7;
+            border: 2px solid #EFE4D3;
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 520px;
+            margin: 20px auto;
+            color: #785A46;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        .inv-header-title { font-family: 'Georgia', serif; font-size: 32px; color: #785A46; margin-bottom: 2px; }
+        .inv-sub { font-size: 13px; color: #8A644A; margin-bottom: 15px; }
+        .inv-info { font-size: 12px; line-height: 1.6; margin-bottom: 15px; }
+        .inv-info b { color: #5C4333; }
+        
+        .inv-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 15px 0; }
+        .inv-table th, .inv-table td { border-bottom: 1px solid #EFE4D3; padding: 8px 6px; text-align: left; }
+        .inv-table th { border-top: 1px solid #785A46; border-bottom: 1px solid #785A46; }
+        .inv-table tr.total-row td { border-top: 1px solid #785A46; border-bottom: 1px solid #785A46; font-weight: bold; }
+
+        .inv-payment-sec { font-size: 12px; line-height: 1.5; margin-top: 15px; }
+        .inv-payment-title { font-size: 16px; font-weight: bold; margin-bottom: 4px; color: #785A46; }
+
+        .inv-footer-flex { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 15px; }
+        .inv-qris-img { width: 130px; height: auto; border-radius: 8px; border: 1px solid #EFE4D3; }
+        .inv-mascot-img { width: 90px; height: auto; }
+    </style>
+</head>
+<body>
+
+<div class="container" id="mainFormContainer">
+    <h1>🛒 Pre-Order Merchandise</h1>
+    
+    <!-- DESKRIPSI -->
+    <div class="section-card" style="font-size: 0.9rem; color: #785A46; line-height: 1.6;">
+        <p style="margin-bottom: 12px;">Hey ho ♡</p>
+        <p style="margin-bottom: 12px;">Thank you so much for taking interest in my merchandise, it truly means a lot to me. Please take a moment to read this form carefully and make sure every detail is filled out correctly and completely before submitting.</p>
+
+        <div style="text-align: left; margin: 16px 0; color: #C5A880; font-weight: bold; letter-spacing: 2px;">──────</div>
+
+        <p style="margin-bottom: 12px;">Hey ho ♡</p>
+        <p style="margin-bottom: 12px;">Terima kasih sudah tertarik dengan merchandise-ku, aku senang sekali :3. Mohon luangkan waktu untuk membaca formulir ini dengan saksama dan pastikan setiap detail diisi dengan benar serta lengkap sebelum dikirim.</p>
+
+        <div style="text-align: left; margin: 16px 0; color: #C5A880; font-weight: bold; letter-spacing: 2px;">──────</div>
+
+        <p style="margin-bottom: 12px;">📅 <b>Pre - order periode</b><br>20 Agustus - 20 September</p>
+        <p style="margin-bottom: 12px;">📦 <b>Shipping</b><br>OTS & Lion Parcel</p>
+        <p style="margin-bottom: 12px;">💳 <b>Payment</b><br>Qris, Shopeepay, Seabank.</p>
+
+        <div style="text-align: left; margin: 16px 0; color: #C5A880; font-weight: bold; letter-spacing: 2px;">──────</div>
+
+        <p style="margin-bottom: 6px;">📮 <b>Pre-Order System:</b></p>
+        <ol style="margin-left: 20px; margin-bottom: 12px;">
+            <li style="margin-bottom: 6px;">Please fill out the form carefully and completely, and make sure your email address is written correctly.</li>
+            <li style="margin-bottom: 6px;">The invoice will be sent via email.</li>
+            <li style="margin-bottom: 6px;">Once the payment has been completed, your order will be recorded and processed accordingly.</li>
+            <li style="margin-bottom: 6px;">Production Periode ±30 days (can be faster)</li>
+            <li style="margin-bottom: 6px;">Merchandise that has been processed and is ready on hand will be announced via Twitter and Email.</li>
+            <li style="margin-bottom: 6px;">Mail orders will be use manual expedition after the event ends.</li>
+            <li style="margin-bottom: 6px;">Shipping will be from Bogor.</li>
+        </ol>
+
+        <div style="text-align: left; margin: 16px 0; color: #C5A880; font-weight: bold; letter-spacing: 2px;">──────</div>
+
+        <p style="margin-bottom: 6px;">📮 <b>Sistem Pre-Order:</b></p>
+        <ol style="margin-left: 20px; margin-bottom: 12px;">
+            <li style="margin-bottom: 6px;">Mohon mengisi formulir dengan saksama dan lengkap serta pastikan alamat email ditulis dengan benar.</li>
+            <li style="margin-bottom: 6px;">Invoice akan dikirimkan melalui email.</li>
+            <li style="margin-bottom: 6px;">Setelah pembayaran selesai, pesanan kamu akan direkap dan segera diproses.</li>
+            <li style="margin-bottom: 6px;">Masa produksi ±30 hari (bisa lebih cepat)</li>
+            <li style="margin-bottom: 6px;">Merchandise yang sudah diproses dan tersedia akan diumumkan melalui Twitter dan Email.</li>
+            <li style="margin-bottom: 6px;">Mail order akan dikirim menggunakan ekspedisi manual setelah event berakhir.</li>
+            <li style="margin-bottom: 6px;">Pengiriman dilakukan dari Bogor.</li>
+        </ol>
+
+        <div style="text-align: left; margin: 16px 0; color: #C5A880; font-weight: bold; letter-spacing: 2px;">──────</div>
+
+        <p style="margin-bottom: 0;">
+            — <b>Contact person:</b><br>
+            @Souffales (IG & X)<br>
+            souffales@gmail.com
+        </p>
+    </div>
+    
+    <form id="orderForm">
+        <div class="section-card">
+            <div class="section-title">📋 Informasi Data Diri</div>
+            <div class="form-group">
+                <label>Nama Lengkap *</label>
+                <input type="text" id="nama" required placeholder="Nama pemesan">
+            </div>
+            <div class="form-group">
+                <label>Email *</label>
+                <input type="email" id="email" required placeholder="email@domain.com">
+            </div>
+            <div class="form-group">
+                <label>No. HP / WhatsApp *</label>
+                <input type="text" id="hp" required placeholder="08xxxxxxxxxx">
+            </div>
+            <div class="form-group">
+                <label>Sosial Media (Twitter/IG/Discord) *</label>
+                <input type="text" id="sosmed" required placeholder="@username">
+            </div>
+            <div class="form-group">
+                <label>Metode Pengambilan *</label>
+                <select id="metodePengambilan" required>
+                    <option value="">-- Pilih Metode Pengambilan --</option>
+                    <option value="Pickup Event">Pickup Event (Ambil langsung di booth)</option>
+                    <option value="Mail Order">Mail Order (Kirim via kurir)</option>
+                </select>
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+                <label>Alamat Pengiriman (Jika Mail Order)</label>
+                <textarea id="alamat" placeholder="Nama jalan, kecamatan, kota, kode pos"></textarea>
+            </div>
+        </div>
+
+        <h2 class="fandom-title">HOYOVERSE (Genshin Impact & HSR)</h2>
+        
+        <div class="merch-card">
+            <img src="https://via.placeholder.com/600x350/FFFDF0/785A46?text=Katalog+Kotsouna+Genshin" alt="Katalog" class="katalog-img">
+            <div class="merch-header">Genshin Impact - Kotsouna (Keychain Standee)</div>
+            <div class="merch-desc">Keychain & Standee Mini</div>
+            <span class="merch-price">Rp 45.000 / $7</span>
+            <div id="kotsouna-genshin-list"></div>
+        </div>
+
+        <div class="merch-card">
+            <img src="https://via.placeholder.com/600x350/FFFDF0/785A46?text=Katalog+Sticker+Genshin" alt="Katalog" class="katalog-img">
+            <div class="merch-header">Genshin Impact - Sticker Diecut</div>
+            <div class="merch-desc">Glitter lamination</div>
+            <span class="merch-price">Rp 8.000 / $1.50</span>
+            <div id="sticker-genshin-list"></div>
+        </div>
+
+        <div class="merch-card">
+            <img src="https://via.placeholder.com/600x350/FFFDF0/785A46?text=Katalog+Kotsouna+HSR" alt="Katalog" class="katalog-img">
+            <div class="merch-header">HSR - Kotsouna (Keychain Standee)</div>
+            <div class="merch-desc">Keychain & Standee Mini</div>
+            <span class="merch-price">Rp 45.000 / $7</span>
+            <div id="kotsouna-hsr-list"></div>
+        </div>
+
+        <div class="merch-card">
+            <img src="https://via.placeholder.com/600x350/FFFDF0/785A46?text=Katalog+Sticker+HSR" alt="Katalog" class="katalog-img">
+            <div class="merch-header">HSR - Sticker Diecut</div>
+            <div class="merch-desc">Glitter lamination</div>
+            <span class="merch-price">Rp 8.000 / $1.50</span>
+            <div id="sticker-hsr-list"></div>
+        </div>
+
+        <div class="section-card">
+            <div class="section-title">💳 Payment & Catatan</div>
+            <div class="form-group">
+                <label>Catatan Tambahan (Opsional)</label>
+                <input type="text" id="catatanPesanan" placeholder="Masukkan catatan keperluan order">
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+                <label>Informasi Pembayaran</label>
+                <div style="background: #FFFDF0; padding: 12px; border-radius: var(--radius-md); border: 2px solid var(--border-solid); font-size: 0.85rem; line-height: 1.5;">
+                    • <b>Seabank:</b> 901136564758<br>
+                    • <b>Shopeepay:</b> @souffales<br>
+                    • <b>QRIS:</b> Terdapat di Invoice setelah submit
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn" id="submitBtn">✨ Buat Pesanan & Generate Invoice Gambar</button>
+    </form>
+</div>
+
+<div class="total-box">
+    <div class="total-content">
+        <span>Total Harga:</span> <span id="totalDisplay" style="font-weight: bold;">Rp 0</span>
+    </div>
+</div>
+
+<div class="modal-overlay" id="invoiceModal">
+    <div style="max-width: 550px; margin: 0 auto;">
+        <div class="invoice-card-preview" id="invoiceCardToCapture">
+            <h1 class="inv-header-title">Invoice</h1>
+            <div class="inv-sub">By @souffales</div>
+
+            <div class="inv-info">
+                <b>No. Invoice:</b> <span id="invNo">#Noa-001</span><br>
+                <b>Date:</b> <span id="invDate">23/09/2026</span><br><br>
+                
+                <b>Issued To:</b><br>
+                <span id="invName">-</span> <span id="invSosmed">(-)</span><br>
+                <span id="invPhone">-</span><br>
+                <span id="invEmail">-</span><br><br>
+
+                <b>Pickup/Shipping:</b> <span id="invShipping">-</span><br>
+                <span id="invAddress">-</span>
+            </div>
+
+            <table class="inv-table">
+                <thead>
+                    <tr>
+                        <th style="width: 25px; text-align: center;">No</th>
+                        <th>Order List</th>
+                        <th style="width: 35px; text-align: center;">Qty</th>
+                        <th style="width: 75px; text-align: right;">Price</th>
+                        <th style="width: 80px; text-align: right;">Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody id="invTableBody">
+                </tbody>
+            </table>
+
+            <div class="inv-payment-sec">
+                <div class="inv-payment-title">Payment:</div>
+                Seabank: 901136564758<br>
+                Shopeepay: @souffales<br>
+                Qris
+                <div class="inv-footer-flex">
+                    <img src="qris-payment.png" class="inv-qris-img" alt="QRIS Payment">
+                    <img src="https://api.iconify.design/fluent-emoji-flat:sparkles.svg" class="inv-mascot-img" alt="Mascot">
+                </div>
+            </div>
+        </div>
+
+        <button class="btn" id="downloadBtn" style="background: #5C4333; margin-bottom: 12px;">💾 Download Invoice Sebagai Gambar (PNG)</button>
+        <button class="btn" onclick="location.reload()" style="background: #A0785C;">Selesai / Kembali ke Form</button>
+    </div>
+</div>
+
+<script>
+    // LINK GS KAMU SUDAH DITEMPEL DI SINI
+    const SCRIPT_URL = "AKfycbw45HwTGCN3L6tTXXYCA7FaC0MSxZ2C1Xxd99TBPAHjQPdS5NcFIOpPeV3zSa0WBdXG";
+
+    function generateInvoiceNumber() {
+        let currentNumber = parseInt(localStorage.getItem('lastInvoiceNum')) || 1;
+        let formattedNumber = String(currentNumber).padStart(3, '0');
+        let invoiceID = `#Noa-${formattedNumber}`;
+        localStorage.setItem('lastInvoiceNum', currentNumber + 1);
+        return invoiceID;
+    }
+
+    const kotsounaGenshinImpactChars = ["Aether", "Lumine", "Kaeya", "Mona", "Venti", "Keqing", "Yanfei", "Xiao", "Ganyu", "Nahida", "Kazuha", "Furina"];
+    const stickerGenshinImpactChars = ["Aether", "Lumine", "Kaeya", "Mona", "Venti", "Keqing", "Yanfei", "Xiao", "Ganyu", "Nahida", "Kazuha", "Furina"];
+    const kotsounaHSRChars = ["Stelle", "Caelus", "March 7th", "Evernight", "Danheng", "Clara", "Sunday", "Robin", "Firefly"];
+    const stickerHSRChars = ["Stelle", "Caelus", "March 7th", "Evernight", "Danheng", "Clara", "Sunday", "Robin", "Firefly"];
+
+    function generateCounters(containerId, charList, itemName, price) {
+        const container = document.getElementById(containerId);
+        if(!container) return;
+        charList.forEach((char, index) => {
+            const row = document.createElement('div');
+            row.className = 'counter-container';
+
+            const label = document.createElement('span');
+            label.className = 'counter-label';
+            label.innerText = char;
+
+            const controls = document.createElement('div');
+            controls.className = 'counter-controls';
+
+            const btnMinus = document.createElement('button');
+            btnMinus.type = 'button';
+            btnMinus.className = 'counter-btn';
+            btnMinus.innerText = '-';
+
+            const valueSpan = document.createElement('span');
+            valueSpan.className = 'counter-value';
+            valueSpan.id = `${containerId}-qty-${index}`;
+            valueSpan.innerText = '0';
+            valueSpan.dataset.price = price;
+            valueSpan.dataset.itemName = `${itemName} - ${char}`;
+
+            const btnPlus = document.createElement('button');
+            btnPlus.type = 'button';
+            btnPlus.className = 'counter-btn';
+            btnPlus.innerText = '+';
+
+            btnPlus.addEventListener('click', function() {
+                let currentVal = parseInt(valueSpan.innerText);
+                valueSpan.innerText = currentVal + 1;
+                calculateTotal();
+            });
+
+            btnMinus.addEventListener('click', function() {
+                let currentVal = parseInt(valueSpan.innerText);
+                if (currentVal > 0) {
+                    valueSpan.innerText = currentVal - 1;
+                    calculateTotal();
+                }
+            });
+
+            controls.appendChild(btnMinus);
+            controls.appendChild(valueSpan);
+            controls.appendChild(btnPlus);
+
+            row.appendChild(label);
+            row.appendChild(controls);
+            container.appendChild(row);
+        });
+    }
+
+    generateCounters('kotsouna-genshin-list', kotsounaGenshinImpactChars, 'Kotsouna Genshin', 45000);
+    generateCounters('sticker-genshin-list', stickerGenshinImpactChars, 'Sticker Genshin', 8000);
+    generateCounters('kotsouna-hsr-list', kotsounaHSRChars, 'Kotsouna HSR', 45000);
+    generateCounters('sticker-hsr-list', stickerHSRChars, 'Sticker HSR', 8000);
+
+    function calculateTotal() {
+        let total = 0;
+        document.querySelectorAll('.counter-value').forEach(el => {
+            total += parseInt(el.innerText) * parseInt(el.dataset.price);
+        });
+        document.getElementById('totalDisplay').innerText = "Rp " + total.toLocaleString('id-ID');
+    }
+
+    document.getElementById('orderForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        let total = 0;
+        let selectedItems = [];
+        document.querySelectorAll('.counter-value').forEach(el => {
+            const qty = parseInt(el.innerText);
+            if (qty > 0) {
+                const price = parseInt(el.dataset.price);
+                const subtotal = qty * price;
+                total += subtotal;
+                selectedItems.push({
+                    name: el.dataset.itemName,
+                    qty: qty,
+                    price: price,
+                    subtotal: subtotal
+                });
+            }
+        });
+
+        if (total === 0) {
+            alert("Harap pilih minimal 1 item!");
+            return;
+        }
+
+        const btn = document.getElementById('submitBtn');
+        btn.innerText = "Memproses Pesanan...";
+        btn.disabled = true;
+
+        const invNum = generateInvoiceNumber();
+        const todayStr = new Date().toLocaleDateString('id-ID');
+
+        document.getElementById('invNo').innerText = invNum;
+        document.getElementById('invDate').innerText = todayStr;
+        document.getElementById('invName').innerText = document.getElementById('nama').value;
+        document.getElementById('invSosmed').innerText = `(${document.getElementById('sosmed').value})`;
+        document.getElementById('invPhone').innerText = document.getElementById('hp').value;
+        document.getElementById('invEmail').innerText = document.getElementById('email').value;
+        document.getElementById('invShipping').innerText = document.getElementById('metodePengambilan').value;
+        document.getElementById('invAddress').innerText = document.getElementById('alamat').value || "-";
+
+        const tbody = document.getElementById('invTableBody');
+        tbody.innerHTML = '';
+        let detailStringArr = [];
+
+        selectedItems.forEach((item, index) => {
+            detailStringArr.push(`${item.name} (x${item.qty})`);
+            const row = `
+                <tr>
+                    <td style="text-align: center;">${index + 1}</td>
+                    <td>${item.name}</td>
+                    <td style="text-align: center;">${item.qty}</td>
+                    <td style="text-align: right;">${item.price.toLocaleString('id-ID')}</td>
+                    <td style="text-align: right;">${item.subtotal.toLocaleString('id-ID')}</td>
+                </tr>
+            `;
+            tbody.innerHTML += row;
+        });
+
+        tbody.innerHTML += `
+            <tr class="total-row">
+                <td colspan="4" style="text-align: right;">Total:</td>
+                <td style="text-align: right;">${total.toLocaleString('id-ID')}</td>
+            </tr>
+        `;
+
+        const payload = {
+            invoice: invNum,
+            nama: document.getElementById('nama').value,
+            email: document.getElementById('email').value,
+            hp: document.getElementById('hp').value,
+            sosmed: document.getElementById('sosmed').value,
+            metodePengambilan: document.getElementById('metodePengambilan').value,
+            alamat: document.getElementById('alamat').value || "-",
+            detailPesanan: detailStringArr.join(', '),
+            totalHarga: "Rp " + total.toLocaleString('id-ID'),
+            catatan: document.getElementById('catatanPesanan').value || "-"
+        };
+
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        })
+        .then(() => {
+            document.getElementById('invoiceModal').style.display = 'block';
+            btn.innerText = "✨ Buat Pesanan & Generate Invoice Gambar";
+            btn.disabled = false;
+        })
+        .catch(err => {
+            console.error(err);
+            document.getElementById('invoiceModal').style.display = 'block';
+            btn.innerText = "✨ Buat Pesanan & Generate Invoice Gambar";
+            btn.disabled = false;
+        });
+    });
+
+    document.getElementById('downloadBtn').addEventListener('click', function() {
+        const card = document.getElementById('invoiceCardToCapture');
+        html2canvas(card, { scale: 2 }).then(canvas => {
+            const link = document.createElement('a');
+            link.download = `Invoice_${document.getElementById('invNo').innerText}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        });
+    });
+</script>
+</body>
+</html>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pre-Order Merchandise Form ✨</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
