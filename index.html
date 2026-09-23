@@ -20,7 +20,6 @@
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
-        /* Body sebagai latar belakang luar */
         body { 
             font-family: 'Quicksand', sans-serif; 
             background-color: var(--bg-cream); 
@@ -29,7 +28,6 @@
             padding-bottom: 100px; 
         }
         
-        /* Container hanya sebagai pengatur lebar di tengah */
         .container { 
             max-width: 650px; 
             margin: 0 auto; 
@@ -42,7 +40,6 @@
             margin-bottom: 20px; 
         }
 
-        /* Setiap Kotak (Informasi, Katalog, Pembayaran) Berdiri Sendiri */
         .section-card, .merch-card { 
             background: var(--card-bg); 
             border: 2px solid var(--border-solid); 
@@ -76,7 +73,6 @@
         }
         textarea { resize: vertical; height: 80px; }
         
-        /* Judul Kategori Fandom */
         .fandom-title { 
             font-family: 'Fredoka', cursive; 
             font-size: 1.3rem; 
@@ -87,13 +83,11 @@
             border-bottom: 2px dashed var(--border-solid);
         }
 
-        /* Styling Isi Katalog Merch */
         .katalog-img { width: 100%; border-radius: var(--radius-md); border: 2px solid var(--border-solid); margin-bottom: 12px; display: block; }
         .merch-header { font-family: 'Fredoka', cursive; font-size: 1.15rem; color: var(--brown-dark); margin-bottom: 4px; }
         .merch-desc { font-size: 0.85rem; color: #8A644A; margin-bottom: 8px; line-height: 1.4; }
         .merch-price { font-size: 0.95rem; font-weight: bold; color: #9A7A60; margin-bottom: 14px; display: block; }
         
-        /* Counter Baris Karakter (- [ 0 ] +) */
         .counter-container { 
             display: flex; 
             align-items: center; 
@@ -124,7 +118,6 @@
         .counter-btn:hover { background: var(--brown-btn); color: #fff; border-color: var(--brown-btn); }
         .counter-value { font-family: 'Fredoka', cursive; font-size: 1.1rem; min-width: 24px; text-align: center; color: var(--brown-dark); }
 
-        /* Floating Bar Total di Bawah */
         .total-box { position: fixed; bottom: 0; left: 0; width: 100%; z-index: 1000; font-family: 'Fredoka', cursive; font-size: 1.1rem; background: var(--highlight); padding: 14px 20px; text-align: center; color: var(--brown-dark); box-shadow: 0 -4px 12px rgba(0,0,0,0.08); border-top: 2px solid #F6D888; }
         .total-content { max-width: 650px; margin: 0 auto; display: flex; justify-content: center; align-items: center; gap: 8px; }
 
@@ -277,8 +270,9 @@
                 <div style="background: #FFFDF0; padding: 12px 14px; border-radius: var(--radius-md); border: 2px solid var(--border-solid); font-size: 0.9rem; line-height: 1.5;">
                     • <b>Seabank:</b> 901136564758<br>
                     • <b>Shopeepay:</b> @souffales<br>
-                    • <b>Qris:</b>
-<img src="qris-payment.png" alt="QRIS Payment" style="width: 100%; max-width: 250px; display: block; align: Left; margin: 10px auto 0; border-radius: var(--radius-md); border: 2px solid var(--border-solid);">
+                    • <b>Qris:</b> Scan QR code di bawah untuk pembayaran<br>
+                    <img src="qris-payment.png" alt="QRIS Payment" style="width: 100%; max-width: 250px; display: block; margin: 10px auto 0; border-radius: var(--radius-md); border: 2px solid var(--border-solid);">
+                </div>
             </div>
 
             <div class="form-group" style="margin-bottom: 0;">
@@ -299,8 +293,16 @@
 </div>
 
 <script>
-    // URL WEB APP GOOGLE SCRIPT
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzdKijPRnGGYrNfMM8FERfTxA6b8-5m8oz_RDLiqiM2V6hIMvofvDSRDxOJKS-xprfh/exec";
+
+    // --- FUNGSI GENERATE NOMOR INVOICE BERURUTAN (#Noa-001 dst) ---
+    function generateInvoiceNumber() {
+        let currentNumber = parseInt(localStorage.getItem('lastInvoiceNum')) || 1;
+        let formattedNumber = String(currentNumber).padStart(3, '0');
+        let invoiceID = `#Noa-${formattedNumber}`;
+        localStorage.setItem('lastInvoiceNum', currentNumber + 1);
+        return invoiceID;
+    }
 
     // --- DATA KARAKTER PER KATALOG ---
     const kotsounaGenshinImpactChars = ["Aether", "Lumine", "Kaeya", "Mona", "Venti", "Keqing", "Yanfei", "Xiao", "Ganyu", "Nahida", "Kazuha", "Furina", "Varesa", "Flins", "Columbina", "Sandrone", "Linnea", "Illuga", "Durin", "Lohen"];
@@ -308,7 +310,6 @@
     const kotsounaHSRChars = ["Stelle", "Caelus", "March 7th", "Evernight", "Danheng", "Clara", "Sunday", "Robin", "Firefly", "Luocha", "Hyacine", "Phainon", "Anaxa", "mydei", "Aventurine", "Dr. Ratio", "Cyrene", "Sparxie"];
     const stickerHSRChars = ["Stelle", "Caelus", "March 7th", "Evernight", "Danheng", "Clara", "Sunday", "Robin", "Firefly", "Luocha", "Hyacine", "Phainon", "Anaxa", "mydei", "Aventurine", "Dr. Ratio", "Cyrene", "Sparxie"];
 
-    // Fungsi untuk membuat baris counter (-) (angka) (+)
     function generateCounters(containerId, charList, itemName, price) {
         const container = document.getElementById(containerId);
         if(!container) return;
@@ -340,14 +341,12 @@
             btnPlus.className = 'counter-btn';
             btnPlus.innerText = '+';
 
-            // Logika Tombol Plus (+)
             btnPlus.addEventListener('click', function() {
                 let currentVal = parseInt(valueSpan.innerText);
                 valueSpan.innerText = currentVal + 1;
                 calculateTotal();
             });
 
-            // Logika Tombol Minus (-)
             btnMinus.addEventListener('click', function() {
                 let currentVal = parseInt(valueSpan.innerText);
                 if (currentVal > 0) {
@@ -366,13 +365,11 @@
         });
     }
 
-    // Panggil fungsi render counter untuk masing-masing merch (Genshin & HSR)
     generateCounters('kotsouna-genshin-list', kotsounaGenshinImpactChars, 'Genshin Kotsouna', 45000);
     generateCounters('sticker-genshin-list', stickerGenshinImpactChars, 'Genshin Sticker', 8000);
     generateCounters('kotsouna-hsr-list', kotsounaHSRChars, 'HSR Kotsouna', 45000);
     generateCounters('sticker-hsr-list', stickerHSRChars, 'HSR Sticker', 8000);
 
-    // --- LOGIKA HITUNG TOTAL ---
     const totalDisplay = document.getElementById('totalDisplay');
 
     function calculateTotal() {
@@ -386,7 +383,6 @@
         totalDisplay.innerText = "Rp " + total.toLocaleString('id-ID');
     }
 
-    // --- LOGIKA SUBMIT FORM ---
     document.getElementById('orderForm').addEventListener('submit', function(e) {
         e.preventDefault();
 
@@ -424,11 +420,15 @@
         btn.innerText = "Sedang Mengirim...";
         btn.disabled = true;
 
+        // Generate nomor invoice berurutan (#Noa-001 dst)
+        const customInvoiceNum = generateInvoiceNumber();
+
         const reader = new FileReader();
         reader.onload = function(uploadEvent) {
             const base64String = uploadEvent.target.result.split(',')[1];
             
             const payload = {
+                invoice: customInvoiceNum, // Mengirim nomor berurutan ke Google Script
                 nama: document.getElementById('nama').value,
                 email: document.getElementById('email').value,
                 hp: document.getElementById('hp').value,
@@ -449,7 +449,7 @@
             .then(res => res.json())
             .then(data => {
                 if(data.status === 'success') {
-                    alert(`Berhasil! Pesanan terkirim dengan Nomor Invoice: ${data.invoice}\nCek email kamu untuk rincian invoice.`);
+                    alert(`Berhasil! Pesanan terkirim dengan Nomor Invoice: ${customInvoiceNum}\nCek email kamu untuk rincian invoice.`);
                     window.location.reload();
                 } else {
                     alert("Terjadi kesalahan, silakan coba lagi.");
