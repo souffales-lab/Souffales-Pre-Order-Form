@@ -52,7 +52,7 @@
 
         .form-group { margin-bottom: 16px; }
         label { display: block; font-family: 'Fredoka', cursive; font-size: 0.9rem; margin-bottom: 6px; color: var(--brown-dark); }
-        input[type="text"], input[type="email"], textarea, select { 
+        input[type="text"], input[type="email"], input[type="file"], textarea, select { 
             width: 100%; 
             padding: 10px 14px; 
             border-radius: var(--radius-md); 
@@ -116,7 +116,6 @@
         .btn { background: var(--brown-btn); color: #fff; border: none; width: 100%; padding: 14px; border-radius: var(--radius-md); font-family: 'Fredoka', cursive; font-size: 1rem; cursor: pointer; box-shadow: 0 4px 0 var(--brown-dark); margin-top: 10px; }
         .btn:hover { background: var(--brown-btn-hover); }
 
-        /* MODAL PREVIEW INVOICE */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; overflow-y: auto; padding: 20px; }
         
         .invoice-card-preview {
@@ -146,7 +145,7 @@
         .inv-payment-title { font-size: 16px; font-weight: bold; margin-bottom: 4px; color: #785A46; }
 
         .inv-footer-flex { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 15px; }
-        .inv-qris-img { width: 130px; height: auto; border-radius: 8px; border: 1px solid #EFE4D3; }
+        .inv-qris-img { width: 130px; height: auto; border-radius: 8px; border: 1px solid #EFE4D3; display: block; }
         .inv-mascot-img { width: 90px; height: auto; }
     </style>
 </head>
@@ -225,16 +224,14 @@
                 <label>Sosial Media (Twitter/IG/Discord) *</label>
                 <input type="text" id="sosmed" required placeholder="@username">
             </div>
-                <div class="form-group">
-    <label>Metode Pengambilan *</label>
-    <select id="metodePengambilan" required>
-        <option value="">-- Pilih Metode Pengambilan --</option>
-        <option value="Pickup Event - CF Day 1">CF Day 1</option>
-        <option value="Pickup Event - CF Day 2">CF Day 2</option>
-        <option value="Mail Order (Lion Parcel)">Mail Order (Lion Parcel)</option>
-    </select>
-</div>
-
+            <div class="form-group">
+                <label>Metode Pengambilan *</label>
+                <select id="metodePengambilan" required>
+                    <option value="">-- Pilih Metode Pengambilan --</option>
+                    <option value="Pickup Event - CF Day 1">CF Day 1</option>
+                    <option value="Pickup Event - CF Day 2">CF Day 2</option>
+                    <option value="Mail Order (Lion Parcel)">Mail Order (Lion Parcel)</option>
+                </select>
             </div>
             <div class="form-group" style="margin-bottom: 0;">
                 <label>Alamat Pengiriman (Jika Mail Order)</label>
@@ -278,6 +275,10 @@
 
         <div class="section-card">
             <div class="section-title">💳 Payment & Catatan</div>
+            <div class="form-group">
+                <label>Upload Bukti Pembayaran (Hasil Transfer / QRIS) *</label>
+                <input type="file" id="buktiBayar" accept="image/*" required>
+            </div>
             <div class="form-group">
                 <label>Catatan Tambahan (Opsional)</label>
                 <input type="text" id="catatanPesanan" placeholder="Masukkan catatan keperluan order">
@@ -341,7 +342,7 @@
                 Shopeepay: @souffales<br>
                 Qris
                 <div class="inv-footer-flex">
-                    <img src="qris-payment.png" class="inv-qris-img" alt="QRIS Payment">
+                    <img src="qris-payment.png" class="inv-qris-img" alt="QRIS Payment" onerror="this.onerror=null; this.src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=qris-payment';">
                     <img src="https://api.iconify.design/fluent-emoji-flat:sparkles.svg" class="inv-mascot-img" alt="Mascot">
                 </div>
             </div>
@@ -353,7 +354,6 @@
 </div>
 
 <script>
-    // URL Google Apps Script yang sudah diperbaiki
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw45HwTGCN3L6tTXXYCA7FaC0MSxZ2C1Xxd99TBPAHjQPdS5NcFIOpPeV3zSa0WBdXG/exec";
 
     function generateInvoiceNumber() {
@@ -437,7 +437,26 @@
         document.getElementById('totalDisplay').innerText = "Rp " + total.toLocaleString('id-ID');
     }
 
-    document.getElementById('orderForm').addEventListener('submit', function(e) {
+    // Fungsi pembantu untuk mengonversi File Gambar menjadi Base64
+    function getBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                let encoded = reader.result.toString().replace(/^data:(.*,)?/, '');
+                if ((encoded.length % 4) > 0) {
+                    encoded += '='.repeat(4 - (encoded.length % 4));
+                }
+                resolve({
+                    base64: encoded,
+                    mimeType: file.type
+                });
+            };
+            reader.onerror = error => reject(error);
+        });
+    }
+
+    document.getElementById('orderForm').addEventListener('submit', async function(e) {
         e.preventDefault();
 
         let total = 0;
@@ -462,77 +481,94 @@
             return;
         }
 
+        const fileInput = document.getElementById('buktiBayar');
+        if (!fileInput.files || fileInput.files.length === 0) {
+            alert("Harap unggah bukti pembayaran!");
+            return;
+        }
+
         const btn = document.getElementById('submitBtn');
-        btn.innerText = "Memproses Pesanan...";
+        btn.innerText = "Mengunggah & Memproses Pesanan...";
         btn.disabled = true;
 
-        const invNum = generateInvoiceNumber();
-        const todayStr = new Date().toLocaleDateString('id-ID');
+        try {
+            const fileData = await getBase64(fileInput.files[0]);
+            
+            const invNum = generateInvoiceNumber();
+            const todayStr = new Date().toLocaleDateString('id-ID');
 
-        document.getElementById('invNo').innerText = invNum;
-        document.getElementById('invDate').innerText = todayStr;
-        document.getElementById('invName').innerText = document.getElementById('nama').value;
-        document.getElementById('invSosmed').innerText = `(${document.getElementById('sosmed').value})`;
-        document.getElementById('invPhone').innerText = document.getElementById('hp').value;
-        document.getElementById('invEmail').innerText = document.getElementById('email').value;
-        document.getElementById('invShipping').innerText = document.getElementById('metodePengambilan').value;
-        document.getElementById('invAddress').innerText = document.getElementById('alamat').value || "-";
+            document.getElementById('invNo').innerText = invNum;
+            document.getElementById('invDate').innerText = todayStr;
+            document.getElementById('invName').innerText = document.getElementById('nama').value;
+            document.getElementById('invSosmed').innerText = `(${document.getElementById('sosmed').value})`;
+            document.getElementById('invPhone').innerText = document.getElementById('hp').value;
+            document.getElementById('invEmail').innerText = document.getElementById('email').value;
+            document.getElementById('invShipping').innerText = document.getElementById('metodePengambilan').value;
+            document.getElementById('invAddress').innerText = document.getElementById('alamat').value || "-";
 
-        const tbody = document.getElementById('invTableBody');
-        tbody.innerHTML = '';
-        let detailStringArr = [];
+            const tbody = document.getElementById('invTableBody');
+            tbody.innerHTML = '';
+            let detailStringArr = [];
 
-        selectedItems.forEach((item, index) => {
-            detailStringArr.push(`${item.name} (x${item.qty})`);
-            const row = `
-                <tr>
-                    <td style="text-align: center;">${index + 1}</td>
-                    <td>${item.name}</td>
-                    <td style="text-align: center;">${item.qty}</td>
-                    <td style="text-align: right;">${item.price.toLocaleString('id-ID')}</td>
-                    <td style="text-align: right;">${item.subtotal.toLocaleString('id-ID')}</td>
+            selectedItems.forEach((item, index) => {
+                detailStringArr.push(`${item.name} (x${item.qty})`);
+                const row = `
+                    <tr>
+                        <td style="text-align: center;">${index + 1}</td>
+                        <td>${item.name}</td>
+                        <td style="text-align: center;">${item.qty}</td>
+                        <td style="text-align: right;">${item.price.toLocaleString('id-ID')}</td>
+                        <td style="text-align: right;">${item.subtotal.toLocaleString('id-ID')}</td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+
+            tbody.innerHTML += `
+                <tr class="total-row">
+                    <td colspan="4" style="text-align: right;">Total:</td>
+                    <td style="text-align: right;">${total.toLocaleString('id-ID')}</td>
                 </tr>
             `;
-            tbody.innerHTML += row;
-        });
 
-        tbody.innerHTML += `
-            <tr class="total-row">
-                <td colspan="4" style="text-align: right;">Total:</td>
-                <td style="text-align: right;">${total.toLocaleString('id-ID')}</td>
-            </tr>
-        `;
+            const payload = {
+                invoice: invNum,
+                nama: document.getElementById('nama').value,
+                email: document.getElementById('email').value,
+                hp: document.getElementById('hp').value,
+                sosmed: document.getElementById('sosmed').value,
+                metodePengambilan: document.getElementById('metodePengambilan').value,
+                alamat: document.getElementById('alamat').value || "-",
+                detailPesanan: detailStringArr.join(', '),
+                totalHarga: "Rp " + total.toLocaleString('id-ID'),
+                catatan: document.getElementById('catatanPesanan').value || "-",
+                buktiBayarBase64: fileData.base64,
+                buktiBayarMimeType: fileData.mimeType
+            };
 
-        const payload = {
-            invoice: invNum,
-            nama: document.getElementById('nama').value,
-            email: document.getElementById('email').value,
-            hp: document.getElementById('hp').value,
-            sosmed: document.getElementById('sosmed').value,
-            metodePengambilan: document.getElementById('metodePengambilan').value,
-            alamat: document.getElementById('alamat').value || "-",
-            detailPesanan: detailStringArr.join(', '),
-            totalHarga: "Rp " + total.toLocaleString('id-ID'),
-            catatan: document.getElementById('catatanPesanan').value || "-"
-        };
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(() => {
+                document.getElementById('invoiceModal').style.display = 'block';
+                btn.innerText = "✨ Buat Pesanan & Generate Invoice Gambar";
+                btn.disabled = false;
+            })
+            .catch(err => {
+                console.error(err);
+                document.getElementById('invoiceModal').style.display = 'block';
+                btn.innerText = "✨ Buat Pesanan & Generate Invoice Gambar";
+                btn.disabled = false;
+            });
 
-        fetch(SCRIPT_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        })
-        .then(() => {
-            document.getElementById('invoiceModal').style.display = 'block';
+        } catch (error) {
+            alert("Gagal memproses file gambar. Silakan coba gambar lain.");
             btn.innerText = "✨ Buat Pesanan & Generate Invoice Gambar";
             btn.disabled = false;
-        })
-        .catch(err => {
-            console.error(err);
-            document.getElementById('invoiceModal').style.display = 'block';
-            btn.innerText = "✨ Buat Pesanan & Generate Invoice Gambar";
-            btn.disabled = false;
-        });
+        }
     });
 
     document.getElementById('downloadBtn').addEventListener('click', function() {
