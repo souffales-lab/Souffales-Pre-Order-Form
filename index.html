@@ -338,15 +338,14 @@
 
             <div class="inv-payment-sec">
                 <div class="inv-payment-title">Payment:</div>
-                Seabank: 901136564758<br>
-                Shopeepay: @souffales<br>
-                Qris
-                <div class="inv-footer-flex">
-                    <img src="qris-payment.png" class="inv-qris-img" alt="QRIS Payment" onerror="this.onerror=null; this.src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=qris-payment';">
-                    <img src="https://api.iconify.design/fluent-emoji-flat:sparkles.svg" class="inv-mascot-img" alt="Mascot">
-                </div>
-            </div>
-        </div>
+               <div class="form-group" style="margin-bottom: 0;">
+    <div style="background: #FFFDF0; padding: 12px; border-radius: var(--radius-md); border: 2px solid var(--border-solid); font-size: 0.85rem; line-height: 1.5;">
+        • <b>Seabank:</b> 901136564758<br>
+        • <b>Shopeepay:</b> @souffales<br>
+        • <b>QRIS:</b><br>
+        <img src="qris-payment.png" alt="QRIS Payment" style="max-width: 180px; width: 100%; border-radius: 8px; margin-top: 8px; border: 1px solid var(--border-solid);">
+    </div>
+</div>
 
         <button class="btn" id="downloadBtn" style="background: #5C4333; margin-bottom: 12px;">💾 Download Invoice Sebagai Gambar (PNG)</button>
         <button class="btn" onclick="location.reload()" style="background: #A0785C;">Selesai / Kembali ke Form</button>
