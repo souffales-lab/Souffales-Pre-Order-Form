@@ -1,394 +1,127 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pre-Order Merchandise Form ✨</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-cream: #FFFDF7;
-            --card-bg: #FFFFFF;
-            --brown-text: #785A46;
-            --brown-dark: #5C4333;
-            --brown-btn: #A0785C;
-            --brown-btn-hover: #8A644A;
-            --border-solid: #EFE4D3;
-            --radius-xl: 20px;
-            --radius-md: 10px;
-            --highlight: #FDE8AF;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Quicksand', sans-serif; background-color: var(--bg-cream); color: var(--brown-text); padding: 20px; padding-bottom: 100px; }
-        .container { max-width: 650px; margin: 0 auto; background: var(--card-bg); border: 2px solid var(--border-solid); border-radius: var(--radius-xl); padding: 24px; box-shadow: 0 4px 16px rgba(120,90,70,0.05); }
-        h1 { font-family: 'Fredoka', cursive; color: var(--brown-dark); text-align: center; margin-bottom: 8px; }
-        
-        /* Kotak Per Bagian (Section Card) */
-        .section-card { background: #FFFDF9; border: 2px solid var(--border-solid); border-radius: var(--radius-xl); padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(120,90,70,0.03); }
-        .section-title { font-family: 'Fredoka', cursive; font-size: 1.1rem; color: var(--brown-dark); margin-bottom: 16px; border-bottom: 2px dashed var(--border-solid); padding-bottom: 8px; }
-
-        .form-group { margin-bottom: 16px; }
-        label { display: block; font-family: 'Fredoka', cursive; font-size: 0.9rem; margin-bottom: 6px; color: var(--brown-dark); }
-        input[type="text"], input[type="email"], textarea, select { width: 100%; padding: 10px 14px; border-radius: var(--radius-md); border: 2px solid var(--border-solid); font-family: 'Quicksand', sans-serif; font-weight: 600; outline: none; background: #FFFDF0; color: var(--brown-dark); }
-        textarea { resize: vertical; height: 80px; }
-        
-        /* Merch Card & Catalog Styles */
-        .fandom-title { font-family: 'Fredoka', cursive; font-size: 1.4rem; color: var(--brown-btn); border-bottom: 2px dashed var(--border-solid); padding-bottom: 5px; margin: 30px 0 15px; }
-        .merch-card { background: #FFFDF9; border: 2px solid var(--border-solid); border-radius: var(--radius-xl); padding: 16px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(120,90,70,0.03); }
-        .katalog-img { width: 100%; border-radius: var(--radius-md); border: 2px solid var(--border-solid); margin-bottom: 12px; display: block; }
-        .merch-header { font-family: 'Fredoka', cursive; font-size: 1.1rem; color: var(--brown-dark); }
-        .merch-desc { font-size: 0.85rem; color: #8A644A; margin-bottom: 8px; }
-        .merch-price { font-size: 0.9rem; font-weight: bold; color: #9A7A60; margin-bottom: 12px; display: block; }
-        
-        /* Counter Control Styling (- [ 0 ] +) */
-        .counter-container { display: flex; align-items: center; justify-content: space-between; background: #FFFDF0; border: 2px solid var(--border-solid); border-radius: var(--radius-md); padding: 8px 14px; margin-top: 8px; }
-        .counter-label { font-family: 'Fredoka', cursive; font-size: 0.9rem; color: var(--brown-dark); }
-        .counter-controls { display: flex; align-items: center; gap: 12px; }
-        .counter-btn { background: var(--card-bg); border: 2px solid var(--border-solid); color: var(--brown-dark); font-family: 'Fredoka', cursive; font-size: 1rem; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
-        .counter-btn:hover { background: var(--brown-btn); color: #fff; border-color: var(--brown-btn); }
-        .counter-value { font-family: 'Fredoka', cursive; font-size: 1.1rem; min-width: 24px; text-align: center; color: var(--brown-dark); }
-
-        /* Floating Total Bar di Bawah */
-        .total-box { position: fixed; bottom: 0; left: 0; width: 100%; z-index: 1000; font-family: 'Fredoka', cursive; font-size: 1.1rem; background: var(--highlight); padding: 14px 20px; text-align: center; color: var(--brown-dark); box-shadow: 0 -4px 12px rgba(0,0,0,0.08); border-top: 2px solid #F6D888; }
-        .total-content { max-width: 650px; margin: 0 auto; display: flex; justify-content: center; align-items: center; gap: 8px; }
-
-        .btn { background: var(--brown-btn); color: #fff; border: none; width: 100%; padding: 14px; border-radius: var(--radius-md); font-family: 'Fredoka', cursive; font-size: 1rem; cursor: pointer; box-shadow: 0 4px 0 var(--brown-dark); margin-top: 10px; }
-        .btn:hover { background: var(--brown-btn-hover); }
-        input[type="file"] { padding: 8px; background: #FFFDF0; border: 2px dashed var(--border-solid); border-radius: var(--radius-md); width: 100%; cursor: pointer; }
-    </style>
-</head>
-<body>
-
-<div class="container">
-    <h1>🛒 Pre-Order Merchandise</h1>
+<style>
+    :root {
+        --bg-cream: #FFFDF7;
+        --card-bg: #FFFFFF;
+        --brown-text: #785A46;
+        --brown-dark: #5C4333;
+        --brown-btn: #A0785C;
+        --brown-btn-hover: #8A644A;
+        --border-solid: #EFE4D3;
+        --radius-xl: 20px;
+        --radius-md: 10px;
+        --highlight: #FDE8AF;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     
-    <!-- DESKRIPSI -->
-    <div style="font-size: 0.9rem; color: #785A46; line-height: 1.6; margin-bottom: 25px; padding: 0 10px;">
-        <p style="margin-bottom: 12px;">Hey ho ♡</p>
-        <p style="margin-bottom: 12px;">Thank you so much for taking interest in my merchandise, it truly means a lot to me. Please take a moment to read this form carefully and make sure every detail is filled out correctly and completely before submitting.</p>
-
-        <div style="text-align: left; margin: 16px 0; color: #C5A880; font-weight: bold; letter-spacing: 2px;">──────</div>
-
-        <p style="margin-bottom: 12px;">Hey ho ♡</p>
-        <p style="margin-bottom: 12px;">Terima kasih sudah tertarik dengan merchandise-ku, aku senang sekali :3. Mohon luangkan waktu untuk membaca formulir ini dengan saksama dan pastikan setiap detail diisi dengan benar serta lengkap sebelum dikirim.</p>
-
-        <div style="text-align: left; margin: 16px 0; color: #C5A880; font-weight: bold; letter-spacing: 2px;">──────</div>
-
-        <p style="margin-bottom: 12px;">📅 <b>Pre - order periode</b><br>20 Agustus - 20 September</p>
-        <p style="margin-bottom: 12px;">📦 <b>Shipping</b><br>OTS & Lion Parcel</p>
-        <p style="margin-bottom: 12px;">💳 <b>Payment</b><br>Qris, Shopeepay, Seabank.</p>
-
-        <div style="text-align: left; margin: 16px 0; color: #C5A880; font-weight: bold; letter-spacing: 2px;">──────</div>
-
-        <p style="margin-bottom: 6px;">📮 <b>Pre-Order System:</b></p>
-        <ol style="margin-left: 20px; margin-bottom: 12px;">
-            <li style="margin-bottom: 6px;">Please fill out the form carefully and completely, and make sure your email address is written correctly.</li>
-            <li style="margin-bottom: 6px;">The invoice will be sent via email.</li>
-            <li style="margin-bottom: 6px;">Once the payment has been completed, your order will be recorded and processed accordingly.</li>
-            <li style="margin-bottom: 6px;">Production Periode ±30 days (can be faster)</li>
-            <li style="margin-bottom: 6px;">Merchandise that has been processed and is ready on hand will be announced via Twitter and Email.</li>
-            <li style="margin-bottom: 6px;">Mail orders will be use manual expedition after the event ends.</li>
-            <li style="margin-bottom: 6px;">Shipping will be from Bogor.</li>
-        </ol>
-
-        <div style="text-align: left; margin: 16px 0; color: #C5A880; font-weight: bold; letter-spacing: 2px;">──────</div>
-
-        <p style="margin-bottom: 6px;">📮 <b>Sistem Pre-Order:</b></p>
-        <ol style="margin-left: 20px; margin-bottom: 12px;">
-            <li style="margin-bottom: 6px;">Mohon mengisi formulir dengan saksama dan lengkap serta pastikan alamat email ditulis dengan benar.</li>
-            <li style="margin-bottom: 6px;">Invoice akan dikirimkan melalui email.</li>
-            <li style="margin-bottom: 6px;">Setelah pembayaran selesai, pesanan kamu akan direkap dan segera diproses.</li>
-            <li style="margin-bottom: 6px;">Masa produksi ±30 hari (bisa lebih cepat)</li>
-            <li style="margin-bottom: 6px;">Merchandise yang sudah diproses dan tersedia akan diumumkan melalui Twitter dan Email.</li>
-            <li style="margin-bottom: 6px;">Mail order akan dikirim menggunakan ekspedisi manual setelah event berakhir.</li>
-            <li style="margin-bottom: 6px;">Pengiriman dilakukan dari Bogor.</li>
-        </ol>
-
-        <div style="text-align: left; margin: 16px 0; color: #C5A880; font-weight: bold; letter-spacing: 2px;">──────</div>
-
-        <p style="margin-bottom: 0;">
-            — <b>Contact person:</b><br>
-            @Souffales (IG & X)<br>
-            souffales@gmail.com
-        </p>
-    </div>
-
-    <form id="orderForm">
-        <!-- KOTAK 1: DATA DIRI -->
-        <div class="section-card">
-            <div class="section-title">📋 Informasi Data Diri</div>
-            
-            <div class="form-group">
-                <label>Nama Lengkap *</label>
-                <input type="text" id="nama" required placeholder="Nama pemesan">
-            </div>
-            <div class="form-group">
-                <label>Email (Untuk pengiriman Invoice) *</label>
-                <input type="email" id="email" required placeholder="email@domain.com">
-            </div>
-            <div class="form-group">
-                <label>No. HP / WhatsApp *</label>
-                <input type="text" id="hp" required placeholder="08xxxxxxxxxx">
-            </div>
-            <div class="form-group">
-                <label>Sosial Media (Twitter/IG/Discord) *</label>
-                <input type="text" id="sosmed" required placeholder="@username atau link akunmu">
-            </div>
-            <div class="form-group">
-                <label>Metode Pengambilan *</label>
-                <select id="metodePengambilan" required>
-                    <option value="">-- Pilih Metode Pengambilan --</option>
-                    <option value="Pickup Event">Pickup Event (Ambil langsung di booth)</option>
-                    <option value="Mail Order">Mail Order (Kirim via kurir)</option>
-                </select>
-            </div>
-            <div class="form-group" style="margin-bottom: 0;">
-                <label>Alamat Pengiriman (Diisi jika memilih Mail Order)</label>
-                <textarea id="alamat" placeholder="Nama jalan, kecamatan, kota, kode pos (Opsional jika pickup event)"></textarea>
-            </div>
-        </div>
-
-        <!-- =================== FANDOM: HOYOVERSE =================== -->
-        <h2 class="fandom-title">HOYOVERSE (Genshin Impact & HSR)</h2>
-        
-        <!-- KATALOG ITEM 1: KOTSOUNA GENSHIN -->
-        <div class="merch-card">
-            <img src="https://via.placeholder.com/600x350/FFFDF0/785A46?text=Katalog+Kotsouna+Genshin" alt="Katalog Kotsouna Genshin" class="katalog-img">
-            <div class="merch-header">Genshin Impact - Kotsouna (Keychain Standee)</div>
-            <div class="merch-desc">Tired of hanging it on your bag? Easily convert your keychain into a cute mini standee whenever you want!</div>
-            <span class="merch-price">Rp 45.000 / $7</span>
-            <div id="kotsouna-genshin-list"></div>
-        </div>
-
-        <!-- KATALOG ITEM 2: STICKER GENSHIN -->
-        <div class="merch-card">
-            <img src="https://via.placeholder.com/600x350/FFFDF0/785A46?text=Katalog+Sticker+Genshin" alt="Katalog Sticker Genshin" class="katalog-img">
-            <div class="merch-header">Genshin Impact - Sticker Diecut</div>
-            <div class="merch-desc">Shine bright under any light! Durable and finished with glitter lamination</div>
-            <span class="merch-price">Rp 8.000 / $1.50</span>
-            <div id="sticker-genshin-list"></div>
-        </div>
-
-        <!-- KATALOG ITEM 3: KOTSOUNA HSR -->
-        <div class="merch-card">
-            <img src="https://via.placeholder.com/600x350/FFFDF0/785A46?text=Katalog+Kotsouna+HSR" alt="Katalog Kotsouna HSR" class="katalog-img">
-            <div class="merch-header">HSR - Kotsouna (Keychain Standee)</div>
-            <div class="merch-desc">Tired of hanging it on your bag? Easily convert your keychain into a cute mini standee whenever you want!</div>
-            <span class="merch-price">Rp 45.000 / $7</span>
-            <div id="kotsouna-hsr-list"></div>
-        </div>
-
-        <!-- KATALOG ITEM 4: STICKER HSR -->
-        <div class="merch-card">
-            <img src="https://via.placeholder.com/600x350/FFFDF0/785A46?text=Katalog+Sticker+HSR" alt="Katalog Sticker HSR" class="katalog-img">
-            <div class="merch-header">HSR - Sticker Diecut</div>
-            <div class="merch-desc">Shine bright under any light! Durable and finished with glitter lamination</div>
-            <span class="merch-price">Rp 8.000 / $1.50</span>
-            <div id="sticker-hsr-list"></div>
-        </div>
-
-        <!-- KOTAK 2: CATATAN & PEMBAYARAN -->
-        <div class="section-card">
-            <div class="section-title">💳 Catatan & Informasi Pembayaran</div>
-            
-            <div class="form-group">
-                <label>Masukkan catatan untuk kami!</label>
-                <input type="text" id="catatanPesanan" placeholder="Beri masukan ataupun catatan keperluan order!">
-            </div>
-
-            <div class="form-group">
-                <label>Informasi Rekening & Pembayaran</label>
-                <div style="background: #FFFDF0; padding: 12px 14px; border-radius: var(--radius-md); border: 2px solid var(--border-solid); font-size: 0.9rem; line-height: 1.5;">
-                    • <b>Seabank:</b> 901136564758 a.n. Souffales<br>
-                    • <b>Shopeepay:</b> @souffales<br>
-                    • <b>Qris:</b> Scan QR code pada saat checkout / event
-                </div>
-            </div>
-
-            <div class="form-group" style="margin-bottom: 0;">
-                <label>Upload bukti pembayaran disini *</label>
-                <input type="file" id="buktiBayar" accept="image/*" required>
-            </div>
-        </div>
-
-        <button type="submit" class="btn" id="submitBtn">✨ Kirim Pesanan & Generate Invoice</button>
-    </form>
-</div>
-
-<!-- FLOATING TOTAL BAR DI BAGIAN BAWAH LAYAR -->
-<div class="total-box">
-    <div class="total-content">
-        <span>Total Harga:</span> <span id="totalDisplay" style="font-weight: bold;">Rp 0</span>
-    </div>
-</div>
-
-<script>
-    // URL WEB APP GOOGLE SCRIPT
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzdKijPRnGGYrNfMM8FERfTxA6b8-5m8oz_RDLiqiM2V6hIMvofvDSRDxOJKS-xprfh/exec";
-
-    // --- DATA KARAKTER PER KATALOG ---
-    const kotsounaGenshinImpactChars = ["Aether", "Lumine", "Kaeya", "Mona", "Venti", "Keqing", "Yanfei", "Xiao", "Ganyu", "Nahida", "Kazuha", "Furina", "Varesa", "Flins", "Columbina", "Sandrone", "Linnea", "Illuga", "Durin", "Lohen"];
-    const stickerGenshinImpactChars = ["Aether", "Lumine", "Kaeya", "Mona", "Venti", "Keqing", "Yanfei", "Xiao", "Ganyu", "Nahida", "Kazuha", "Furina", "Varesa", "Flins", "Columbina", "Sandrone", "Linnea", "Illuga", "Durin", "Lohen"];
-    const kotsounaHSRChars = ["Stelle", "Caelus", "March 7th", "Evernight", "Danheng", "Clara", "Sunday", "Robin", "Firefly", "Luocha", "Hyacine", "Phainon", "Anaxa", "mydei", "Aventurine", "Dr. Ratio", "Cyrene", "Sparxie"];
-    const stickerHSRChars = ["Stelle", "Caelus", "March 7th", "Evernight", "Danheng", "Clara", "Sunday", "Robin", "Firefly", "Luocha", "Hyacine", "Phainon", "Anaxa", "mydei", "Aventurine", "Dr. Ratio", "Cyrene", "Sparxie"];
-    // Fungsi untuk membuat baris counter (-) (angka) (+)
-    function generateCounters(containerId, charList, itemName, price) {
-        const container = document.getElementById(containerId);
-        if(!container) return;
-        charList.forEach((char, index) => {
-            const row = document.createElement('div');
-            row.className = 'counter-container';
-
-            const label = document.createElement('span');
-            label.className = 'counter-label';
-            label.innerText = char;
-
-            const controls = document.createElement('div');
-            controls.className = 'counter-controls';
-
-            const btnMinus = document.createElement('button');
-            btnMinus.type = 'button';
-            btnMinus.className = 'counter-btn';
-            btnMinus.innerText = '-';
-
-            const valueSpan = document.createElement('span');
-            valueSpan.className = 'counter-value';
-            valueSpan.id = `${containerId}-qty-${index}`;
-            valueSpan.innerText = '0';
-            valueSpan.dataset.price = price;
-            valueSpan.dataset.itemName = `${itemName} - ${char}`;
-
-            const btnPlus = document.createElement('button');
-            btnPlus.type = 'button';
-            btnPlus.className = 'counter-btn';
-            btnPlus.innerText = '+';
-
-            // Logika Tombol Plus (+)
-            btnPlus.addEventListener('click', function() {
-                let currentVal = parseInt(valueSpan.innerText);
-                valueSpan.innerText = currentVal + 1;
-                calculateTotal();
-            });
-
-            // Logika Tombol Minus (-)
-            btnMinus.addEventListener('click', function() {
-                let currentVal = parseInt(valueSpan.innerText);
-                if (currentVal > 0) {
-                    valueSpan.innerText = currentVal - 1;
-                    calculateTotal();
-                }
-            });
-
-            controls.appendChild(btnMinus);
-            controls.appendChild(valueSpan);
-            controls.appendChild(btnPlus);
-
-            row.appendChild(label);
-            row.appendChild(controls);
-            container.appendChild(row);
-        });
+    /* Body sebagai pembungkus luar tanpa garis tepi */
+    body { 
+        font-family: 'Quicksand', sans-serif; 
+        background-color: var(--bg-cream); 
+        color: var(--brown-text); 
+        padding: 20px 12px; 
+        padding-bottom: 100px; 
+    }
+    
+    /* Container hanya penentu lebar tengah, TANPA background & border tumpuk */
+    .container { 
+        max-width: 650px; 
+        margin: 0 auto; 
+    }
+    
+    h1 { 
+        font-family: 'Fredoka', cursive; 
+        color: var(--brown-dark); 
+        text-align: center; 
+        margin-bottom: 20px; 
     }
 
-    // Panggil fungsi render counter untuk masing-masing merch (Genshin & HSR)
-generateCounters('kotsouna-genshin-list', kotsounaGenshinImpactChars, 'Genshin Kotsouna', 45000);
-generateCounters('sticker-genshin-list', stickerGenshinImpactChars, 'Genshin Sticker', 8000);
-generateCounters('kotsouna-hsr-list', kotsounaHSRChars, 'HSR Kotsouna', 45000);
-generateCounters('sticker-hsr-list', stickerHSRChars, 'HSR Sticker', 8000);
-
-    // --- LOGIKA HITUNG TOTAL ---
-    const totalDisplay = document.getElementById('totalDisplay');
-
-    function calculateTotal() {
-        let total = 0;
-        const allValues = document.querySelectorAll('.counter-value');
-        allValues.forEach(el => {
-            const qty = parseInt(el.innerText);
-            const price = parseInt(el.dataset.price);
-            total += qty * price;
-        });
-        totalDisplay.innerText = "Rp " + total.toLocaleString('id-ID');
+    /* Setiap Kotak (Informasi, Katalog, Pembayaran) Berdiri Sendiri */
+    .section-card, .merch-card { 
+        background: var(--card-bg); 
+        border: 2px solid var(--border-solid); 
+        border-radius: var(--radius-xl); 
+        padding: 20px; 
+        margin-bottom: 24px; 
+        box-shadow: 0 4px 12px rgba(120,90,70,0.04); 
+    }
+    
+    .section-title { 
+        font-family: 'Fredoka', cursive; 
+        font-size: 1.1rem; 
+        color: var(--brown-dark); 
+        margin-bottom: 16px; 
+        border-bottom: 2px dashed var(--border-solid); 
+        padding-bottom: 8px; 
     }
 
-    // --- LOGIKA SUBMIT FORM ---
-    document.getElementById('orderForm').addEventListener('submit', function(e) {
-        e.preventDefault();
+    .form-group { margin-bottom: 16px; }
+    label { display: block; font-family: 'Fredoka', cursive; font-size: 0.9rem; margin-bottom: 6px; color: var(--brown-dark); }
+    input[type="text"], input[type="email"], textarea, select { 
+        width: 100%; 
+        padding: 10px 14px; 
+        border-radius: var(--radius-md); 
+        border: 2px solid var(--border-solid); 
+        font-family: 'Quicksand', sans-serif; 
+        font-weight: 600; 
+        outline: none; 
+        background: #FFFDF0; 
+        color: var(--brown-dark); 
+    }
+    textarea { resize: vertical; height: 80px; }
+    
+    /* Judul Kategori Fandom */
+    .fandom-title { 
+        font-family: 'Fredoka', cursive; 
+        font-size: 1.3rem; 
+        color: var(--brown-btn); 
+        text-align: center;
+        margin: 35px 0 20px; 
+        padding-bottom: 6px;
+        border-bottom: 2px dashed var(--border-solid);
+    }
 
-        let total = 0;
-        let detailsArr = [];
-        const allValues = document.querySelectorAll('.counter-value');
-        allValues.forEach(el => {
-            const qty = parseInt(el.innerText);
-            if (qty > 0) {
-                const price = parseInt(el.dataset.price);
-                total += qty * price;
-                detailsArr.push(`${el.dataset.itemName} (x${qty})`);
-            }
-        });
+    /* Styling Isi Katalog Merch */
+    .katalog-img { width: 100%; border-radius: var(--radius-md); border: 2px solid var(--border-solid); margin-bottom: 12px; display: block; }
+    .merch-header { font-family: 'Fredoka', cursive; font-size: 1.15rem; color: var(--brown-dark); margin-bottom: 4px; }
+    .merch-desc { font-size: 0.85rem; color: #8A644A; margin-bottom: 8px; line-height: 1.4; }
+    .merch-price { font-size: 0.95rem; font-weight: bold; color: #9A7A60; margin-bottom: 14px; display: block; }
+    
+    /* Counter Baris Karakter (- [ 0 ] +) */
+    .counter-container { 
+        display: flex; 
+        align-items: center; 
+        justify-content: space-between; 
+        background: #FFFDF0; 
+        border: 2px solid var(--border-solid); 
+        border-radius: var(--radius-md); 
+        padding: 8px 14px; 
+        margin-top: 8px; 
+    }
+    .counter-label { font-family: 'Fredoka', cursive; font-size: 0.9rem; color: var(--brown-dark); }
+    .counter-controls { display: flex; align-items: center; gap: 12px; }
+    .counter-btn { 
+        background: var(--card-bg); 
+        border: 2px solid var(--border-solid); 
+        color: var(--brown-dark); 
+        font-family: 'Fredoka', cursive; 
+        font-size: 1rem; 
+        width: 32px; 
+        height: 32px; 
+        border-radius: 50%; 
+        cursor: pointer; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        transition: all 0.2s; 
+    }
+    .counter-btn:hover { background: var(--brown-btn); color: #fff; border-color: var(--brown-btn); }
+    .counter-value { font-family: 'Fredoka', cursive; font-size: 1.1rem; min-width: 24px; text-align: center; color: var(--brown-dark); }
 
-        if (total === 0) {
-            alert("Harap pilih minimal 1 merch terlebih dahulu!");
-            return;
-        }
+    /* Floating Bar Total di Bawah */
+    .total-box { position: fixed; bottom: 0; left: 0; width: 100%; z-index: 1000; font-family: 'Fredoka', cursive; font-size: 1.1rem; background: var(--highlight); padding: 14px 20px; text-align: center; color: var(--brown-dark); box-shadow: 0 -4px 12px rgba(0,0,0,0.08); border-top: 2px solid #F6D888; }
+    .total-content { max-width: 650px; margin: 0 auto; display: flex; justify-content: center; align-items: center; gap: 8px; }
 
-        const fileInput = document.getElementById('buktiBayar');
-        const file = fileInput.files[0];
-        if (!file) {
-            alert("Harap upload bukti pembayaran!");
-            return;
-        }
-
-        let finalDetailStr = detailsArr.join(', ');
-        const catatan = document.getElementById('catatanPesanan').value.trim();
-        if (catatan) {
-            finalDetailStr += ` | Catatan/Link: ${catatan}`;
-        }
-
-        const btn = document.getElementById('submitBtn');
-        btn.innerText = "Sedang Mengirim...";
-        btn.disabled = true;
-
-        const reader = new FileReader();
-        reader.onload = function(uploadEvent) {
-            const base64String = uploadEvent.target.result.split(',')[1];
-            
-            const payload = {
-                nama: document.getElementById('nama').value,
-                email: document.getElementById('email').value,
-                hp: document.getElementById('hp').value,
-                sosmed: document.getElementById('sosmed').value,
-                metodePengambilan: document.getElementById('metodePengambilan').value,
-                alamat: document.getElementById('alamat').value || "-",
-                detailPesanan: finalDetailStr,
-                totalHarga: "Rp " + total.toLocaleString('id-ID'),
-                fileName: file.name,
-                fileMimeType: file.type,
-                fileData: base64String
-            };
-
-            fetch(SCRIPT_URL, {
-                method: 'POST',
-                body: JSON.stringify(payload)
-            })
-            .then(res => res.json())
-            .then(data => {
-                if(data.status === 'success') {
-                    alert(`Berhasil! Pesanan terkirim dengan Nomor Invoice: ${data.invoice}\nCek email kamu untuk rincian invoice.`);
-                    window.location.reload();
-                } else {
-                    alert("Terjadi kesalahan, silakan coba lagi.");
-                    btn.innerText = "✨ Kirim Pesanan & Generate Invoice";
-                    btn.disabled = false;
-                }
-            })
-            .catch(err => {
-                console.error(err);
-                alert("Gagal terhubung ke server.");
-                btn.innerText = "✨ Kirim Pesanan & Generate Invoice";
-                btn.disabled = false;
-            });
-        };
-        reader.readAsDataURL(file);
-    });
-</script>
-</body>
-</html>
+    .btn { background: var(--brown-btn); color: #fff; border: none; width: 100%; padding: 14px; border-radius: var(--radius-md); font-family: 'Fredoka', cursive; font-size: 1rem; cursor: pointer; box-shadow: 0 4px 0 var(--brown-dark); margin-top: 10px; }
+    .btn:hover { background: var(--brown-btn-hover); }
+    input[type="file"] { padding: 8px; background: #FFFDF0; border: 2px dashed var(--border-solid); border-radius: var(--radius-md); width: 100%; cursor: pointer; }
+</style>
