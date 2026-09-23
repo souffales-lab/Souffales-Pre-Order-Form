@@ -224,12 +224,11 @@
 
 <script>
     // URL WEB APP GOOGLE SCRIPT
-    const SCRIPT_URL = "MASUKKAN_URL_WEB_APP_GOOGLE_SCRIPT_DISINI";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzdKijPRnGGYrNfMM8FERfTxA6b8-5m8oz_RDLiqiM2V6hIMvofvDSRDxOJKS-xprfh/exec";
 
     // --- DATA KARAKTER PER KATALOG ---
-    const kotsounaChars = ["Karakter 1", "Karakter 2", "Karakter 3"];
-    const stickerChars = ["Set Karakter A", "Set Karakter B"];
-
+    const kotsounaChars = ["Aether", "Lumine", "Kaeya", "Mona", "Venti", "Keqing", "Yanfei", "Xiao", "Ganyu", "Nahida", "Kazuha", "Furina", "Varesa", "Flins", "Columbina", "Sandrone", "Linnea", "Illuga", "Durin", "Lohen"];
+    const stickerChars = ["Aether", "Lumine", "Kaeya", "Mona", "Venti", "Keqing", "Yanfei", "Xiao", "Ganyu", "Nahida", "Kazuha", "Furina", "Varesa", "Flins", "Columbina", "Sandrone", "Linnea", "Illuga", "Durin", "Lohen"];
     // Fungsi untuk membuat baris counter (-) (angka) (+)
     function generateCounters(containerId, charList, itemName, price) {
         const container = document.getElementById(containerId);
@@ -325,7 +324,7 @@
         });
 
         if (total === 0) {
-            alert("Harap pilih minimal 1 merchandise terlebih dahulu!");
+            alert("Harap pilih minimal 1 merch terlebih dahulu!");
             return;
         }
 
