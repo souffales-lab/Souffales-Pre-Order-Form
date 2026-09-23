@@ -273,27 +273,29 @@
             <div id="sticker-hsr-list"></div>
         </div>
 
-        <div class="section-card">
-            <div class="section-title">💳 Payment & Catatan</div>
-            </div>
-            <div class="form-group">
-                <label>Catatan Tambahan (Opsional)</label>
-                <input type="text" id="catatanPesanan" placeholder="Masukkan catatan keperluan order">
-            </div>
-            <div class="inv-payment-sec">
-                <div class="inv-payment-title">Payment:</div>
-               <div class="form-group" style="margin-bottom: 0;">
-    <div style="background: #FFFDF0; padding: 12px; border-radius: var(--radius-md); border: 2px solid var(--border-solid); font-size: 0.85rem; line-height: 1.5;">
-        • <b>Seabank:</b> 901136564758<br>
-        • <b>Shopeepay:</b> @souffales<br>
-        • <b>QRIS:</b><br>
-        <img src="qris-payment.png" alt="QRIS Payment" style="max-width: 180px; width: 100%; border-radius: 8px; margin-top: 8px; border: 1px solid var(--border-solid);">
-          </div>
-                   <div class="form-group">
-                <label>Upload Bukti Pembayaran (Hasil Transfer / QRIS) *</label>
-                <input type="file" id="buktiBayar" accept="image/*" required>
-         </div>
-     </div>
+       <div class="section-card">
+    <div class="section-title">💳 Payment!</div>
+
+    <div class="form-group">
+        <label>Catatan Tambahan (Opsional)</label>
+        <input type="text" id="catatanPesanan" placeholder="Ber kami masukkan atau catatan keperluan order">
+    </div>
+
+    <div class="form-group">
+        <label>Informasi Pembayaran</label>
+        <div style="background: #FFFDF0; padding: 12px; border-radius: var(--radius-md); border: 2px solid var(--border-solid); font-size: 0.85rem; line-height: 1.5;">
+            • <b>Seabank:</b> 901136564758<br>
+            • <b>Shopeepay:</b> @souffales<br>
+            • <b>QRIS:</b><br>
+            <img src="qris-payment.png" alt="QRIS Payment" style="max-width: 180px; width: 100%; border-radius: 8px; margin-top: 8px; border: 1px solid var(--border-solid);">
+        </div>
+    </div>
+
+    <div class="form-group" style="margin-bottom: 0;">
+        <label>Upload Bukti Pembayaran*</label>
+        <input type="file" id="buktiBayar" accept="image/*" required>
+    </div>
+</div>
                 
         <button type="submit" class="btn" id="submitBtn">Submit ✨</button>
     </form>
