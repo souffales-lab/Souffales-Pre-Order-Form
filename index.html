@@ -22,7 +22,11 @@
         body { font-family: 'Quicksand', sans-serif; background-color: var(--bg-cream); color: var(--brown-text); padding: 20px; padding-bottom: 100px; }
         .container { max-width: 650px; margin: 0 auto; background: var(--card-bg); border: 2px solid var(--border-solid); border-radius: var(--radius-xl); padding: 24px; box-shadow: 0 4px 16px rgba(120,90,70,0.05); }
         h1 { font-family: 'Fredoka', cursive; color: var(--brown-dark); text-align: center; margin-bottom: 8px; }
-        p.subtitle { text-align: center; font-size: 0.9rem; margin-bottom: 24px; font-weight: 600; }
+        
+        /* Kotak Per Bagian (Section Card) */
+        .section-card { background: #FFFDF9; border: 2px solid var(--border-solid); border-radius: var(--radius-xl); padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(120,90,70,0.03); }
+        .section-title { font-family: 'Fredoka', cursive; font-size: 1.1rem; color: var(--brown-dark); margin-bottom: 16px; border-bottom: 2px dashed var(--border-solid); padding-bottom: 8px; }
+
         .form-group { margin-bottom: 16px; }
         label { display: block; font-family: 'Fredoka', cursive; font-size: 0.9rem; margin-bottom: 6px; color: var(--brown-dark); }
         input[type="text"], input[type="email"], textarea, select { width: 100%; padding: 10px 14px; border-radius: var(--radius-md); border: 2px solid var(--border-solid); font-family: 'Quicksand', sans-serif; font-weight: 600; outline: none; background: #FFFDF0; color: var(--brown-dark); }
@@ -33,6 +37,7 @@
         .merch-card { background: #FFFDF9; border: 2px solid var(--border-solid); border-radius: var(--radius-xl); padding: 16px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(120,90,70,0.03); }
         .katalog-img { width: 100%; border-radius: var(--radius-md); border: 2px solid var(--border-solid); margin-bottom: 12px; display: block; }
         .merch-header { font-family: 'Fredoka', cursive; font-size: 1.1rem; color: var(--brown-dark); }
+        .merch-desc { font-size: 0.85rem; color: #8A644A; margin-bottom: 8px; }
         .merch-price { font-size: 0.9rem; font-weight: bold; color: #9A7A60; margin-bottom: 12px; display: block; }
         
         /* Counter Control Styling (- [ 0 ] +) */
@@ -56,8 +61,9 @@
 
 <div class="container">
     <h1>🛒 Pre-Order Merchandise</h1>
-  <!-- DESKRIPSI TANPA KOTAK -->
-    <div style="font-size: 0.9rem; color: #785A46; line-height: 1.6; margin-bottom: 25px;">
+    
+    <!-- DESKRIPSI -->
+    <div style="font-size: 0.9rem; color: #785A46; line-height: 1.6; margin-bottom: 25px; padding: 0 10px;">
         <p style="margin-bottom: 12px;">Hey ho ♡</p>
         <p style="margin-bottom: 12px;">Thank you so much for taking interest in my merchandise, it truly means a lot to me. Please take a moment to read this form carefully and make sure every detail is filled out correctly and completely before submitting.</p>
 
@@ -69,9 +75,7 @@
         <div style="text-align: left; margin: 16px 0; color: #C5A880; font-weight: bold; letter-spacing: 2px;">──────</div>
 
         <p style="margin-bottom: 12px;">📅 <b>Pre - order periode</b><br>20 Agustus - 20 September</p>
-
         <p style="margin-bottom: 12px;">📦 <b>Shipping</b><br>OTS & Lion Parcel</p>
-
         <p style="margin-bottom: 12px;">💳 <b>Payment</b><br>Qris, Shopeepay, Seabank.</p>
 
         <div style="text-align: left; margin: 16px 0; color: #C5A880; font-weight: bold; letter-spacing: 2px;">──────</div>
@@ -109,98 +113,102 @@
         </p>
     </div>
 
-    
     <form id="orderForm">
-        <!-- FORM DATA DIRI -->
-        <div class="form-group" style="margin-top: 25px;">
-    <label>Nama Lengkap *</label>
-    <input type="text" id="nama" required placeholder="Nama pemesan">
-        </div>
-        <div class="form-group">
-            <label>Email (Untuk pengiriman Invoice) *</label>
-            <input type="email" id="email" required placeholder="email@domain.com">
-        </div>
-        <div class="form-group">
-            <label>No. HP / WhatsApp *</label>
-            <input type="text" id="hp" required placeholder="08xxxxxxxxxx">
-        </div>
-        <div class="form-group">
-            <label>Sosial Media (Twitter/IG/Discord) *</label>
-            <input type="text" id="sosmed" required placeholder="@username atau link akunmu">
-        </div>
-        <div class="form-group">
-            <label>Metode Pengambilan *</label>
-            <select id="metodePengambilan" required>
-                <option value="">-- Pilih Metode Pengambilan --</option>
-                <option value="Pickup Event">Pickup Event (Ambil langsung di booth)</option>
-                <option value="Mail Order">Mail Order (Kirim via kurir)</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>Alamat Pengiriman (Diisi jika memilih Mail Order)</label>
-            <textarea id="alamat" placeholder="Nama jalan, kecamatan, kota, kode pos (Opsional jika pickup event)"></textarea>
+        <!-- KOTAK 1: DATA DIRI -->
+        <div class="section-card">
+            <div class="section-title">📋 Informasi Data Diri</div>
+            
+            <div class="form-group">
+                <label>Nama Lengkap *</label>
+                <input type="text" id="nama" required placeholder="Nama pemesan">
+            </div>
+            <div class="form-group">
+                <label>Email (Untuk pengiriman Invoice) *</label>
+                <input type="email" id="email" required placeholder="email@domain.com">
+            </div>
+            <div class="form-group">
+                <label>No. HP / WhatsApp *</label>
+                <input type="text" id="hp" required placeholder="08xxxxxxxxxx">
+            </div>
+            <div class="form-group">
+                <label>Sosial Media (Twitter/IG/Discord) *</label>
+                <input type="text" id="sosmed" required placeholder="@username atau link akunmu">
+            </div>
+            <div class="form-group">
+                <label>Metode Pengambilan *</label>
+                <select id="metodePengambilan" required>
+                    <option value="">-- Pilih Metode Pengambilan --</option>
+                    <option value="Pickup Event">Pickup Event (Ambil langsung di booth)</option>
+                    <option value="Mail Order">Mail Order (Kirim via kurir)</option>
+                </select>
+            </div>
+            <div class="form-group" style="margin-bottom: 0;">
+                <label>Alamat Pengiriman (Diisi jika memilih Mail Order)</label>
+                <textarea id="alamat" placeholder="Nama jalan, kecamatan, kota, kode pos (Opsional jika pickup event)"></textarea>
+            </div>
         </div>
 
-        <!-- =================== FANDOM: GENSHIN IMPACT =================== -->
+        <!-- =================== FANDOM: HOYOVERSE =================== -->
         <h2 class="fandom-title">HOYOVERSE (Genshin Impact & HSR)</h2>
         
-        <!-- KATALOG ITEM 1: KOTSOUNA -->
+        <!-- KATALOG ITEM 1: KOTSOUNA GENSHIN -->
         <div class="merch-card">
-            <img src="https://via.placeholder.com/600x350/FFFDF0/785A46?text=Katalog+Kotsouna+Genshin" alt="Katalog Kotsouna" class="katalog-img">
+            <img src="https://via.placeholder.com/600x350/FFFDF0/785A46?text=Katalog+Kotsouna+Genshin" alt="Katalog Kotsouna Genshin" class="katalog-img">
             <div class="merch-header">Genshin Impact - Kotsouna (Keychain Standee)</div>
-            <div class="merch-desc">Tired of hanging it on your bag? Easily convert your keychain into a cute mini standee whenever you want! </div>
+            <div class="merch-desc">Tired of hanging it on your bag? Easily convert your keychain into a cute mini standee whenever you want!</div>
             <span class="merch-price">Rp 45.000 / $7</span>
-            
             <div id="kotsouna-genshin-list"></div>
         </div>
 
-        <!-- KATALOG ITEM 2: STICKER -->
+        <!-- KATALOG ITEM 2: STICKER GENSHIN -->
         <div class="merch-card">
-            <img src="https://via.placeholder.com/600x350/FFFDF0/785A46?text=Katalog+Sticker+Genshin" alt="Katalog Sticker" class="katalog-img">
+            <img src="https://via.placeholder.com/600x350/FFFDF0/785A46?text=Katalog+Sticker+Genshin" alt="Katalog Sticker Genshin" class="katalog-img">
             <div class="merch-header">Genshin Impact - Sticker Diecut</div>
             <div class="merch-desc">Shine bright under any light! Durable and finished with glitter lamination</div>
             <span class="merch-price">Rp 8.000 / $1.50</span>
-            
             <div id="sticker-genshin-list"></div>
         </div>
 
-        <!-- KATALOG ITEM 3: KOTSOUNA -->
+        <!-- KATALOG ITEM 3: KOTSOUNA HSR -->
         <div class="merch-card">
-            <img src="https://via.placeholder.com/600x350/FFFDF0/785A46?text=Katalog+Kotsouna+Genshin" alt="Katalog Kotsouna" class="katalog-img">
+            <img src="https://via.placeholder.com/600x350/FFFDF0/785A46?text=Katalog+Kotsouna+HSR" alt="Katalog Kotsouna HSR" class="katalog-img">
             <div class="merch-header">HSR - Kotsouna (Keychain Standee)</div>
-            <div class="merch-desc">Tired of hanging it on your bag? Easily convert your keychain into a cute mini standee whenever you want! </div>
+            <div class="merch-desc">Tired of hanging it on your bag? Easily convert your keychain into a cute mini standee whenever you want!</div>
             <span class="merch-price">Rp 45.000 / $7</span>
-            
-            <div id="kotsouna-genshin-list"></div>
+            <div id="kotsouna-hsr-list"></div>
         </div>
 
-        <!-- KATALOG ITEM 4: STICKER -->
+        <!-- KATALOG ITEM 4: STICKER HSR -->
         <div class="merch-card">
-            <img src="https://via.placeholder.com/600x350/FFFDF0/785A46?text=Katalog+Sticker+Genshin" alt="Katalog Sticker" class="katalog-img">
+            <img src="https://via.placeholder.com/600x350/FFFDF0/785A46?text=Katalog+Sticker+HSR" alt="Katalog Sticker HSR" class="katalog-img">
             <div class="merch-header">HSR - Sticker Diecut</div>
             <div class="merch-desc">Shine bright under any light! Durable and finished with glitter lamination</div>
             <span class="merch-price">Rp 8.000 / $1.50</span>
+            <div id="sticker-hsr-list"></div>
+        </div>
+
+        <!-- KOTAK 2: CATATAN & PEMBAYARAN -->
+        <div class="section-card">
+            <div class="section-title">💳 Catatan & Informasi Pembayaran</div>
             
-            <div id="sticker-genshin-list"></div>
-        </div>
+            <div class="form-group">
+                <label>Masukkan catatan untuk kami!</label>
+                <input type="text" id="catatanPesanan" placeholder="Beri masukan ataupun catatan keperluan order!">
+            </div>
 
+            <div class="form-group">
+                <label>Informasi Rekening & Pembayaran</label>
+                <div style="background: #FFFDF0; padding: 12px 14px; border-radius: var(--radius-md); border: 2px solid var(--border-solid); font-size: 0.9rem; line-height: 1.5;">
+                    • <b>Seabank:</b> 901136564758 a.n. Souffales<br>
+                    • <b>Shopeepay:</b> @souffales<br>
+                    • <b>Qris:</b> Scan QR code pada saat checkout / event
+                </div>
+            </div>
 
-        <!-- CATATAN / LINK TAMBAHAN -->
-        <div class="form-group">
-            <label>Masukkan catatan untuk kami!</label>
-            <input type="text" id="catatanPesanan" placeholder="Beri masukkan ataupun catatan keperluan order!">
-        </div>
-
-        <div class="form-group">
-            <label>Payment!</label>
-            <type="text" Seabank 901136564758
-                Shopeepay: @souffales
-                Qris </div>
-        </div>
-
-        <div class="form-group">
-            <label>Upload bukti pembayaran disini *</label>
-            <input type="file" id="buktiBayar" accept="image/*" required>
+            <div class="form-group" style="margin-bottom: 0;">
+                <label>Upload bukti pembayaran disini *</label>
+                <input type="file" id="buktiBayar" accept="image/*" required>
+            </div>
         </div>
 
         <button type="submit" class="btn" id="submitBtn">✨ Kirim Pesanan & Generate Invoice</button>
@@ -225,6 +233,7 @@
     // Fungsi untuk membuat baris counter (-) (angka) (+)
     function generateCounters(containerId, charList, itemName, price) {
         const container = document.getElementById(containerId);
+        if(!container) return;
         charList.forEach((char, index) => {
             const row = document.createElement('div');
             row.className = 'counter-container';
@@ -279,9 +288,11 @@
         });
     }
 
-    // Panggil fungsi render counter untuk masing-masing merch
+    // Panggil fungsi render counter untuk masing-masing merch (Genshin & HSR)
     generateCounters('kotsouna-genshin-list', kotsounaChars, 'Genshin Kotsouna', 45000);
     generateCounters('sticker-genshin-list', stickerChars, 'Genshin Sticker', 8000);
+    generateCounters('kotsouna-hsr-list', kotsounaChars, 'HSR Kotsouna', 45000);
+    generateCounters('sticker-hsr-list', stickerChars, 'HSR Sticker', 8000);
 
     // --- LOGIKA HITUNG TOTAL ---
     const totalDisplay = document.getElementById('totalDisplay');
@@ -380,4 +391,3 @@
 </script>
 </body>
 </html>
-
