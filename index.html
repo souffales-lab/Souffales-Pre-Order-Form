@@ -572,13 +572,27 @@
         });
     });
 
-    <!-- Tombol Rahasia Reset Invoice (Hanya Kamu yang Klik) -->
-<div style="text-align: center; margin-top: 30px;">
-  <button type="button" onclick="localStorage.setItem('lastInvoiceNum', 1); alert('Nomor Invoice berhasil di-reset ke #Noa-001!');" style="background: none; border: 1px dashed #ccc; color: #888; padding: 5px 10px; cursor: pointer; font-size: 12px;">
-    🔄 Reset Counter Invoice ke #Noa-001
+</script>
+
+<!-- 1. Tombol HTML yang akan diklik -->
+<div style="text-align: center; margin-top: 30px; margin-bottom: 20px;">
+  <button type="button" onclick="adminResetCounter()" style="background: transparent; border: 1px dashed #ccc; color: #999; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 11px;">
+    ⚙️ Reset Counter Invoice ke #Noa-001
   </button>
 </div>
-    
+
+<!-- 2. Script JavaScript untuk Password (Sesuai Screenshot Kamu) -->
+<script>
+function adminResetCounter() {
+  const password = prompt("Masukkan Password Admin untuk Reset Invoice:");
+  if (password === "aleanjaymabarslebew") {
+    localStorage.setItem('lastInvoiceNum', 1);
+    alert("Berhasil! Nomor invoice berikutnya akan dimulai dari #Noa-001.");
+  } else if (password !== null) {
+    alert("Password salah!");
+  }
+}
+
 </script>
 </body>
 </html>
