@@ -314,7 +314,7 @@
             <div class="inv-sub">By @souffales</div>
 
             <div class="inv-info">
-                <b>No. Invoice:</b> <span id="invNo">#Noa-001</span><br>
+                <b>No. Invoice:</b> <span id="invNo">#Noa-000</span><br>
                 <b>Date:</b> <span id="invDate">23/09/2026</span><br><br>
                 
                 <b>Issued To:</b><br>
@@ -571,6 +571,14 @@
             link.click();
         });
     });
+
+    <!-- Tombol Rahasia Reset Invoice (Hanya Kamu yang Klik) -->
+<div style="text-align: center; margin-top: 30px;">
+  <button type="button" onclick="localStorage.setItem('lastInvoiceNum', 1); alert('Nomor Invoice berhasil di-reset ke #Noa-001!');" style="background: none; border: 1px dashed #ccc; color: #888; padding: 5px 10px; cursor: pointer; font-size: 12px;">
+    🔄 Reset Counter Invoice ke #Noa-001
+  </button>
+</div>
+    
 </script>
 </body>
 </html>
