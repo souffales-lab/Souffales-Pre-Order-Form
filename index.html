@@ -586,9 +586,9 @@ function adminResetCounter() {
 }
 </script>
 
-<!-- Tombol ditaruh di paling bawah luar semua container -->
-<div style="position: relative; z-index: 99999; text-align: center; margin: 40px auto 20px auto; clear: both;">
-  <button type="button" onclick="adminResetCounter()" style="background: #ffffff; border: 1px dashed #999; color: #555; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 12px; font-family: sans-serif;">
+<!-- Tombol dipaksa tampil paling atas -->
+<div style="position: relative; z-index: 999999; text-align: center; padding: 20px; margin-top: 30px; background-color: #f9f9f9; border-top: 1px dashed #ccc;">
+  <button type="button" onclick="adminResetCounter()" style="background: #ffffff; border: 1px solid #aaa; color: #333; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: bold;">
     ⚙️ Reset Counter Invoice ke #Noa-001
   </button>
 </div>
