@@ -574,14 +574,6 @@
 
 </script>
 
-<!-- 1. Tombol HTML yang akan diklik -->
-<div style="text-align: center; margin-top: 30px; margin-bottom: 20px;">
-  <button type="button" onclick="adminResetCounter()" style="background: transparent; border: 1px dashed #ccc; color: #999; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 11px;">
-    ⚙️ Reset Counter Invoice ke #Noa-001
-  </button>
-</div>
-
-<!-- 2. Script JavaScript untuk Password (Sesuai Screenshot Kamu) -->
 <script>
 function adminResetCounter() {
   const password = prompt("Masukkan Password Admin untuk Reset Invoice:");
@@ -592,6 +584,14 @@ function adminResetCounter() {
     alert("Password salah!");
   }
 }
+</script>
+
+<!-- Tombol ditaruh di paling bawah luar semua container -->
+<div style="position: relative; z-index: 99999; text-align: center; margin: 40px auto 20px auto; clear: both;">
+  <button type="button" onclick="adminResetCounter()" style="background: #ffffff; border: 1px dashed #999; color: #555; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 12px; font-family: sans-serif;">
+    ⚙️ Reset Counter Invoice ke #Noa-001
+  </button>
+</div>
 
 </script>
 </body>
