@@ -584,14 +584,26 @@ function adminResetCounter() {
     alert("Password salah!");
   }
 }
-</script>
+<body>
 
-<!-- Tombol Admin Mengapung di Pojok Kiri Bawah -->
-<div style="position: fixed; bottom: 15px; left: 15px; z-index: 999999;">
-  <button type="button" onclick="adminResetCounter()" style="background: #ffffff; border: 1px solid #ccc; color: #666; padding: 6px 12px; border-radius: 20px; cursor: pointer; font-size: 11px; box-shadow: 0 2px 8px rgba(0,0,0,0.15); font-weight: bold;">
-    ⚙️ Reset Invoice
+<!-- TARUH DI SINI DULU UNTUK TES -->
+<div style="background: #ffeb3b; color: #000; text-align: center; padding: 10px; font-weight: bold; position: relative; z-index: 999999;">
+  <button type="button" onclick="adminResetCounter()" style="padding: 8px 16px; cursor: pointer;">
+    ⚙️ Reset Counter Invoice ke #Noa-001
   </button>
 </div>
+
+<script>
+function adminResetCounter() {
+  const password = prompt("Masukkan Password Admin untuk Reset Invoice:");
+  if (password === "aleanjaymabarslebew") {
+    localStorage.setItem('lastInvoiceNum', 1);
+    alert("Berhasil! Nomor invoice berikutnya akan dimulai dari #Noa-001.");
+  } else if (password !== null) {
+    alert("Password salah!");
+  }
+}
+</script>
 
 </script>
 </body>
